@@ -5,6 +5,7 @@ var gsz;
 var mode;
 var turn;
 var randint;
+var wallsprites;
 
 function proceed(){
   turn = (turn + 1)%players.length;
@@ -58,6 +59,16 @@ function setup(){
     var hig = int(prompt("Enter the board height, more than or equal to 5"));
   }while(!(hig >= 5));
 
+  wallsprites = [];
+  try{
+    for (var i = 1; i < 6; i++) {
+      wallsprites.push(loadImage("./data/Walls/Wall " + i + ".png"));
+    }
+  }
+  catch(err){
+    wallsprites = -1;
+  }
+
   boardsize = [wid, hig];
   const PLAYERPRESET = [[0, 0], [wid - 1  , 0], [0, hig - 1], [wid - 1, hig - 1], [int(wid/2), 0], [int(wid/2), hig - 1], [0, int(hig/2)], [wid - 1, int(hig/2)]];
   const WALLPRESET = [[1,0], [0,1], [wid - 2, 0], [0, hig - 2], [1, hig - 1], [wid - 1, 1], [wid - 1, hig - 2], [wid - 2, hig - 1]];
@@ -89,7 +100,11 @@ function draw(){
   }
   fill(128);
   for(var i = 0; i < walls.length; i ++){
-    rect(walls[i][0]*gsz[0]/boardsize[0], walls[i][1]*gsz[1]/boardsize[1], gsz[0]/boardsize[0], gsz[1]/boardsize[1]);
+    if(wallsprites = -1){
+      rect(walls[i][0]*gsz[0]/boardsize[0], walls[i][1]*gsz[1]/boardsize[1], gsz[0]/boardsize[0], gsz[1]/boardsize[1]);
+    } else {
+      image(wallsprites[1], walls[i][0]*gsz[0]/boardsize[0], walls[i][1]*gsz[1]/boardsize[1], gsz[0]/boardsize[0], gsz[1]/boardsize[1]);
+    }
   }
   for(var i = 0; i < players.length; i++){
     fill(0);
