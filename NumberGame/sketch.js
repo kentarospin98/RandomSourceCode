@@ -9,6 +9,8 @@ var wallsprites;
 var playersymbols;
 var boardoffsets;
 var boarddims;
+var currentborder;
+var boardbackground;
 
 function proceed(){
   turn = (turn + 1)%players.length;
@@ -65,6 +67,8 @@ function setup(){
 
   wallsprites = [];
   playersymbols = [];
+  currentborder = loadImage("data/CurrentPlayer/HighlightPlayer.png");
+  boardbackground = loadImage("data/Background/Background.png");
   for (var i = 1; i < 6; i++) {
     // try{
       var image = loadImage("data/Walls/Wall" + str(i) + ".png");
@@ -108,7 +112,11 @@ function setup(){
 
 function draw(){
   background(128);
-  fill(255);
+
+  fill(0, 255);
+  image(boardbackground, boardoffsets[0], boardoffsets[1], boarddims[0]*boardsize[0], boarddims[1]*boardsize[1]);
+
+  fill(0, 0);
   strokeWeight(4);
   for(var i = 0; i < boardsize[0]; i++){
     for(var j = 0; j < boardsize[1]; j++){
@@ -131,6 +139,7 @@ function draw(){
     if(turn == i){
       fill(255, 0, 0, 128);
       rect((players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y+0)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
+      image(currentborder, (players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y+0)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
     }
     fill(0);
     image(players[i].symbol, (players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y+0)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
