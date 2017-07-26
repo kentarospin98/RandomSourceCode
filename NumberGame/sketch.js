@@ -7,6 +7,8 @@ var turn;
 var randint;
 var wallsprites;
 var playersymbols;
+var boardoffsets;
+var boarddims;
 
 function proceed(){
   turn = (turn + 1)%players.length;
@@ -41,10 +43,10 @@ function randomiser(){
 
   this.show = function(){
     fill(255);
-    textSize(gsz[0]/boardsize[0]*2);
+    textSize(boarddims[0]*2);
     textAlign(CENTER, TOP);
     text(this.digit, (gsz[1] + width)/2, 0);
-    text(this.movetype, (gsz[1] + width)/2, gsz[0]/boardsize[0]*2);
+    text(this.movetype, (gsz[1] + width)/2, boarddims[0]*2);
   }
 }
 
@@ -83,6 +85,7 @@ function setup(){
   }
 
   boardsize = [wid, hig];
+  boardoffsets = [width/48, height/27];
   const PLAYERPRESET = [[0, 0], [wid - 1  , 0], [0, hig - 1], [wid - 1, hig - 1], [int(wid/2), 0], [int(wid/2), hig - 1], [0, int(hig/2)], [wid - 1, int(hig/2)]];
   const WALLPRESET = [[1,0], [0,1], [wid - 2, 0], [0, hig - 2], [1, hig - 1], [wid - 1, 1], [wid - 1, hig - 2], [wid - 2, hig - 1]];
 
@@ -100,6 +103,7 @@ function setup(){
   randint = new randomiser();
   mode = "SPIN";
   walls = WALLPRESET;
+  boarddims = [(gsz[0] - boardoffsets[0])/boardsize[0], (gsz[1] - 2*boardoffsets[1])/boardsize[1]];
 }
 
 function draw(){
@@ -108,28 +112,28 @@ function draw(){
   strokeWeight(4);
   for(var i = 0; i < boardsize[0]; i++){
     for(var j = 0; j < boardsize[1]; j++){
-      rect(i*gsz[0]/boardsize[0], j*gsz[1]/boardsize[1], gsz[0]/boardsize[0], gsz[1]/boardsize[1]);
+      rect(i*boarddims[0] + boardoffsets[0], j*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
     }
   }
   fill(128);
   for(var i = 0; i < walls.length; i ++){
     var n = int((frameCount/5)%wallsprites.length);
     if(wallsprites[n] == -1){
-      rect(walls[i][0]*gsz[0]/boardsize[0], walls[i][1]*gsz[1]/boardsize[1], gsz[0]/boardsize[0], gsz[1]/boardsize[1]);
+      rect(walls[i][0]*boarddims[0] + boardoffsets[0], walls[i][1]*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
     } else {
-      image(wallsprites[n], walls[i][0]*gsz[0]/boardsize[0], walls[i][1]*gsz[1]/boardsize[1], gsz[0]/boardsize[0], gsz[1]/boardsize[1]);
+      image(wallsprites[n], walls[i][0]*boarddims[0] + boardoffsets[0], walls[i][1]*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
     }
   }
   for(var i = 0; i < players.length; i++){
     fill(0);
     textAlign(LEFT, TOP);
-    textSize(gsz[1]/boardsize[1]);
+    textSize(boarddims[1]);
     if(turn == i){
       fill(255, 0, 0, 128);
-      rect((players[i].x)*gsz[0]/boardsize[0], (players[i].y+0)*gsz[1]/boardsize[1], gsz[0]/boardsize[0], gsz[1]/boardsize[1]);
+      rect((players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y+0)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
     }
     fill(0);
-    image(players[i].symbol, (players[i].x)*gsz[0]/boardsize[0], (players[i].y+0)*gsz[1]/boardsize[1], gsz[0]/boardsize[0], gsz[1]/boardsize[1]);
+    image(players[i].symbol, (players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y+0)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
   }
 
   if(mode == "SPIN" && frameCount%2 == 0){
@@ -147,19 +151,19 @@ function mousePressed(){
       var tile = -1;
       for (var i = 0; i < boardsize[0]; i++) {
         for (var j = 0; j < boardsize[1]; j++) {
-          if(mouseX > i*gsz[0]/boardsize[0] && mouseX < (i+1)*gsz[0]/boardsize[0] && mouseY > j*gsz[1]/boardsize[1] && mouseY < (j+1)*gsz[1]/boardsize[1]){
+          if(mouseX > i*boarddims[0] + boardoffsets[0] && mouseX < (i+1)*boarddims[0] + boardoffsets[0] && mouseY > j*boarddims[1] + boardoffsets[1] && mouseY < (j+1)*boarddims[1] + boardoffsets[1]){
             tile = [i, j];
             break;
           }
         }
-      }
+      }+ boardoffsets[1]
       for (var i = 0; i < players.length; i++) {
         if(tile[0] == players[i].x && tile[1] == players[i].y && turn != i){
           tile = -1;
           break;
         }
       }
-      if(tile != -1 && abs(players[turn].x - tile[0]) <= 2 && abs(players[turn].y - tile[1]) <= 2){
+      if(tile != -1+ boardoffsets[1] && abs(players[turn].x - tile[0]) <= 2 && abs(players[turn].y - tile[1]) <= 2){
         players[turn].x = tile[0];
         players[turn].y = tile[1];
         proceed();
