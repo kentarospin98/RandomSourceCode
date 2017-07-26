@@ -6,14 +6,16 @@ var mode;
 var turn;
 var randint;
 var wallsprites;
+var playersymbols;
 
 function proceed(){
   turn = (turn + 1)%players.length;
   mode = "SPIN"
 }
 
-function player(name, x, y){
+function player(name, symbol, x, y){
   this.name = name;
+  this.symbol = symbol;
   this.x = x;
   this.y = y;
 };
@@ -60,13 +62,24 @@ function setup(){
   }while(!(hig >= 5));
 
   wallsprites = [];
-  try{
-    for (var i = 1; i < 6; i++) {
-      wallsprites.push(loadImage("./data/Walls/Wall " + i + ".png"));
-    }
+  playersymbols = [];
+  for (var i = 1; i < 6; i++) {
+    // try{
+      var image = loadImage("data/Walls/Wall" + str(i) + ".png");
+      console.log(image);
+      wallsprites.push(image);
+    // }catch(err){
+    //   wallsprites[i] = -1;
+    // }
   }
-  catch(err){
-    wallsprites = -1;
+  for (var i = 0; i < 4; i++) {
+    // try{
+      var image = loadImage("data/Players/Player" + str(i) + ".png");
+      console.log(image);
+      playersymbols.push(image);
+    // }catch(err){
+    //   wallsprites[i] = -1;
+    // }
   }
 
   boardsize = [wid, hig];
@@ -80,7 +93,7 @@ function setup(){
     if(inp == ""){
       break;
     }else{
-      players.push(new player(inp, PLAYERPRESET[i][0], PLAYERPRESET[i][1]));
+      players.push(new player(inp,playersymbols[i] , PLAYERPRESET[i][0], PLAYERPRESET[i][1]));
     }
   }
   turn = 0;
@@ -100,10 +113,11 @@ function draw(){
   }
   fill(128);
   for(var i = 0; i < walls.length; i ++){
-    if(wallsprites = -1){
+    var n = int((frameCount/5)%wallsprites.length);
+    if(wallsprites[n] == -1){
       rect(walls[i][0]*gsz[0]/boardsize[0], walls[i][1]*gsz[1]/boardsize[1], gsz[0]/boardsize[0], gsz[1]/boardsize[1]);
     } else {
-      image(wallsprites[1], walls[i][0]*gsz[0]/boardsize[0], walls[i][1]*gsz[1]/boardsize[1], gsz[0]/boardsize[0], gsz[1]/boardsize[1]);
+      image(wallsprites[n], walls[i][0]*gsz[0]/boardsize[0], walls[i][1]*gsz[1]/boardsize[1], gsz[0]/boardsize[0], gsz[1]/boardsize[1]);
     }
   }
   for(var i = 0; i < players.length; i++){
@@ -115,7 +129,7 @@ function draw(){
       rect((players[i].x)*gsz[0]/boardsize[0], (players[i].y+0)*gsz[1]/boardsize[1], gsz[0]/boardsize[0], gsz[1]/boardsize[1]);
     }
     fill(0);
-    text(players[i].name, (players[i].x)*gsz[0]/boardsize[0], (players[i].y+0)*gsz[1]/boardsize[1], gsz[0]/boardsize[0], gsz[1]/boardsize[1]);
+    image(players[i].symbol, (players[i].x)*gsz[0]/boardsize[0], (players[i].y+0)*gsz[1]/boardsize[1], gsz[0]/boardsize[0], gsz[1]/boardsize[1]);
   }
 
   if(mode == "SPIN" && frameCount%2 == 0){
