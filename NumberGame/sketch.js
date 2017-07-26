@@ -61,9 +61,7 @@ function setup(){
   do{
     var wid = int(prompt("Enter the board width, more than or equal to 5"));
   }while(!(wid >= 5));
-  do{
-    var hig = int(prompt("Enter the board height, more than or equal to 5"));
-  }while(!(hig >= 5));
+  hig = wid;
 
   wallsprites = [];
   playersymbols = [];
