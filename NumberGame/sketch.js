@@ -11,6 +11,24 @@ var boardoffsets;
 var boarddims;
 var currentborder;
 var boardbackground;
+var randintsprites;
+
+function displaypnames(){
+  fill(255);
+  rect(height + boardoffsets[0], 3*(width - gsz[0])/4 + 2*boardoffsets[1], 3*(width - gsz[0])/4, height - 3*(width - gsz[0])/4 - 3*boardoffsets[1]);
+  for (var i = 0; i < players.length; i++) {
+    var name = players[i].name;
+    var symbol = players[i].symbol;
+
+    var texthig = 5*(height - 3*(width - gsz[0])/4 - 3*boardoffsets[1])/16;
+
+    fill(0);
+    textAlign(LEFT, TOP);
+    textSize(texthig);
+    image(symbol, gsz[0] + boardoffsets[0] + (i%2)*3*(width - gsz[0])/8, 3*(width - gsz[0])/4 + (int(i/2) + 1)*(height - 3*(width - gsz[0])/4 - 3*boardoffsets[1])/2, texthig, texthig);
+    text(players[i].name.slice(0, 8), texthig + gsz[0] + boardoffsets[0] + (i%2)*3*(width - gsz[0])/8, 3*(width - gsz[0])/4 + (int(i/2) + 1)*(height - 3*(width - gsz[0])/4 - 3*boardoffsets[1])/2);
+  }
+}
 
 function proceed(){
   turn = (turn + 1)%players.length;
@@ -44,11 +62,15 @@ function randomiser(){
   }
 
   this.show = function(){
-    fill(255);
-    textSize(boarddims[0]*2);
-    textAlign(CENTER, TOP);
-    text(this.digit, (gsz[1] + width)/2, 0);
-    text(this.movetype, (gsz[1] + width)/2, boarddims[0]*2);
+    // fill(255);
+    // textSize(boarddims[0]*2);
+    // textAlign(CENTER, TOP);
+    // text(this.digit, (gsz[1] + width)/2, 0);
+    // text(this.movetype, (gsz[1] + width)/2, boarddims[0]*2);
+
+    image(randintsprites[this.digit], gsz[0] + boardoffsets[0], boardoffsets[1], 3*(width - gsz[0])/4, 3*(width - gsz[0])/4);
+    fill(0, 0);
+    rect(gsz[0] + boardoffsets[0], boardoffsets[1], 3*(width - gsz[0])/4, 3*(width - gsz[0])/4);
   }
 }
 
@@ -65,12 +87,17 @@ function setup(){
 
   wallsprites = [];
   playersymbols = [];
+  randintsprites = [];
   currentborder = loadImage("data/CurrentPlayer/HighlightPlayer.png");
   boardbackground = loadImage("data/Background/Background.png");
+  for(var i = 1; i < 5; i++){
+    var image = loadImage("data/RanInt/RanInt" + str(i) + ".png");
+    randintsprites.push(image);
+  }
   for (var i = 1; i < 6; i++) {
     // try{
       var image = loadImage("data/Walls/Wall" + str(i) + ".png");
-      console.log(image);
+      // console.log(image);
       wallsprites.push(image);
     // }catch(err){
     //   wallsprites[i] = -1;
@@ -79,7 +106,7 @@ function setup(){
   for (var i = 0; i < 4; i++) {
     // try{
       var image = loadImage("data/Players/Player" + str(i) + ".png");
-      console.log(image);
+      // console.log(image);
       playersymbols.push(image);
     // }catch(err){
     //   wallsprites[i] = -1;
@@ -93,7 +120,7 @@ function setup(){
 
   players = [];
 
-  for(var i = 0; i < 8; i++){
+  for(var i = 0; i < 4; i++){
     inp = prompt("Enter the name of the next player (Leave blank if all players are done)");
     if(inp == ""){
       break;
@@ -148,7 +175,7 @@ function draw(){
       mode = "MOVE"
     }
   }
-
+  displaypnames();
   randint.show();
 }
 
