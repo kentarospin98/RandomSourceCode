@@ -12,21 +12,31 @@ var boarddims;
 var currentborder;
 var boardbackground;
 var randintsprites;
+var font;
 
 function displaypnames(){
   fill(255);
-  rect(height + boardoffsets[0], 3*(width - gsz[0])/4 + 2*boardoffsets[1], 3*(width - gsz[0])/4, height - 3*(width - gsz[0])/4 - 3*boardoffsets[1]);
+  rect(gsz[0] + boardoffsets[0], 3*(gsz[0]-2*boardoffsets[1])/4 + 2*boardoffsets[1], 3*(gsz[0]-2*boardoffsets[1])/4, height - 3*(gsz[0]-2*boardoffsets[1])/4 - 3*boardoffsets[1]);
   for (var i = 0; i < players.length; i++) {
     var name = players[i].name;
     var symbol = players[i].symbol;
 
-    var texthig = 5*(height - 3*(width - gsz[0])/4 - 3*boardoffsets[1])/16;
+    var texthig = 5*(height - 3*(gsz[0]-2*boardoffsets[1])/4 - 3*boardoffsets[1])/16;
 
     fill(0);
     textAlign(LEFT, TOP);
     textSize(texthig);
-    image(symbol, gsz[0] + boardoffsets[0] + (i%2)*3*(width - gsz[0])/8, 3*(width - gsz[0])/4 + (int(i/2) + 1)*(height - 3*(width - gsz[0])/4 - 3*boardoffsets[1])/2, texthig, texthig);
-    text(players[i].name.slice(0, 8), texthig + gsz[0] + boardoffsets[0] + (i%2)*3*(width - gsz[0])/8, 3*(width - gsz[0])/4 + (int(i/2) + 1)*(height - 3*(width - gsz[0])/4 - 3*boardoffsets[1])/2);
+    textFont(font);
+    // image(symbol, gsz[0] + boardoffsets[0] + (i%1)*3*(gsz[0]-2*boardoffsets[1])/8, );
+    image(symbol,
+          gsz[0] + boardoffsets[0] + (i%2)*3*(gsz[0]-2*boardoffsets[1])/8,
+          3*(gsz[0]-2*boardoffsets[1])/4 + (int(i/2) + 1)*(height - 3*(gsz[0]-2*boardoffsets[1])/4 - 3*boardoffsets[1])/2,
+          texthig,
+          texthig);
+    text(players[i].name.slice(0, 8),
+         gsz[0] + boardoffsets[0] + (i%2)*3*(gsz[0]-2*boardoffsets[1])/8 + texthig,
+         3*(gsz[0]-2*boardoffsets[1])/4 + (int(i/2) + 1)*(height - 3*(gsz[0]-2*boardoffsets[1])/4 - 3*boardoffsets[1])/2 - texthig/10);
+    // text(players[i].name.slice(0, 8), texthig + gsz[0] + boardoffsets[0] + (i%2)*3*(gsz[0]-2*boardoffsets[1])/8, 3*(width - gsz[0])/4 + (int(i/2) + 1)*(height - 3*(gsz[0]-2*boardoffsets[1])/4 - 3*boardoffsets[1])/2);
   }
 }
 
@@ -68,26 +78,17 @@ function randomiser(){
     // text(this.digit, (gsz[1] + width)/2, 0);
     // text(this.movetype, (gsz[1] + width)/2, boarddims[0]*2);
 
-    image(randintsprites[this.digit], gsz[0] + boardoffsets[0], boardoffsets[1], 3*(width - gsz[0])/4, 3*(width - gsz[0])/4);
+    image(randintsprites[this.digit], gsz[0] + boardoffsets[0], boardoffsets[1], 3*(gsz[0]-2*boardoffsets[1])/4, 3*(gsz[0]-2*boardoffsets[1])/4);
     fill(0, 0);
-    rect(gsz[0] + boardoffsets[0], boardoffsets[1], 3*(width - gsz[0])/4, 3*(width - gsz[0])/4);
+    rect(gsz[0] + boardoffsets[0], boardoffsets[1], 3*(gsz[0]-2*boardoffsets[1])/4, 3*(gsz[0]-2*boardoffsets[1])/4);
   }
 }
 
-function setup(){
-  // createCanvas(800, 600);
-  createCanvas(document.body.clientWidth, document.body.clientHeight);
-  // fullScreen();
-
-  gsz = [height, height];
-  do{
-    var wid = int(prompt("Enter the board width, more than or equal to 5"));
-  }while(!(wid >= 5));
-  hig = wid;
-
+function preload(){
   wallsprites = [];
   playersymbols = [];
   randintsprites = [];
+  font = loadFont("data/Font/Brush.ttf");
   currentborder = loadImage("data/CurrentPlayer/HighlightPlayer.png");
   boardbackground = loadImage("data/Background/Background.png");
   for(var i = 1; i < 5; i++){
@@ -112,6 +113,19 @@ function setup(){
     //   wallsprites[i] = -1;
     // }
   }
+
+}
+
+function setup(){
+  // createCanvas(800, 600);
+  createCanvas(document.body.clientWidth, document.body.clientHeight);
+  // fullScreen();
+
+  gsz = [height, height];
+  do{
+    var wid = int(prompt("Enter the board width, more than or equal to 5"));
+  }while(!(wid >= 5));
+  hig = wid;
 
   boardsize = [wid, hig];
   boardoffsets = [width/48, height/27];
