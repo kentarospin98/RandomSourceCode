@@ -59,14 +59,21 @@ function randomiser(){
   this.movetype = "Type 0"
 
   this.random = function(){
-    // this.digit = int(random(5));
-    this.digit = 0;
+    this.digit = int(random(5));
+    // this.digit = 0;
     this.spincount--;
     if(this.spincount <= 0){
       if(this.digit == 0){
         this.movetype = "Move";
+        mode = "MOVE";
+        searchspaces();
+      }else if(this.digit == 2){
+        this.movetype = "Build";
+        mode = "MOVE";
+        searchbuild();
       }else{
         this.movetype = "Type " + str(this.digit);
+        mode = "SPIN";
       }
       return true;
     }
@@ -82,6 +89,34 @@ function randomiser(){
     image(randintsprites[this.digit], gsz[0] + boardoffsets[0], boardoffsets[1], 3*(gsz[0]-2*boardoffsets[1])/4, 3*(gsz[0]-2*boardoffsets[1])/4);
     fill(0, 0);
     rect(gsz[0] + boardoffsets[0], boardoffsets[1], 3*(gsz[0]-2*boardoffsets[1])/4, 3*(gsz[0]-2*boardoffsets[1])/4);
+  }
+}
+
+function searchbuild(){
+  availablespaces = [];
+  // Search Left
+  if(players[turn].x > 0){
+    if (!searchwalls([players[turn].x - 1, players[turn].y])) {
+      availablespaces.push([players[turn].x - 1, players[turn].y]);
+    }
+  }
+  // Search Right
+  if(players[turn].x < boardsize[0] - 1){
+    if (!searchwalls([players[turn].x + 1, players[turn].y])) {
+      availablespaces.push([players[turn].x + 1, players[turn].y]);
+    }
+  }
+  // Search Top
+  if(players[turn].y > 0){
+    if (!searchwalls([players[turn].x, players[turn].y - 1])) {
+      availablespaces.push([players[turn].x, players[turn].y - 1]);
+    }
+  }
+  // Search Bottom
+  if(players[turn].y < boardsize[1] - 1){
+    if (!searchwalls([players[turn].x, players[turn].y + 1])) {
+      availablespaces.push([players[turn].x, players[turn].y + 1]);
+    }
   }
 }
 
@@ -195,7 +230,7 @@ function preload(){
   font = loadFont("data/Font/Brush.ttf");
   currentborder = loadImage("data/CurrentPlayer/HighlightPlayer.png");
   boardbackground = loadImage("data/Background/Background.png");
-  for(var i = 1; i < 5; i++){
+  for(var i = 1; i < 6; i++){
     var image = loadImage("data/RanInt/RanInt" + str(i) + ".png");
     randintsprites.push(image);
   }
@@ -297,28 +332,30 @@ function draw(){
     rect((availablespaces[i][0])*boarddims[0] + boardoffsets[0], (availablespaces[i][1])*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
   }
 
-  if(mode == "SPIN" && frameCount%2 == 0){
-    if(randint.random()){
-      mode = "MOVE";
-      searchspaces();
-    }
+  if(mode == "SPIN" && frameCount%3 == 0){
+    randint.random();
   }
   displaypnames();
   randint.show();
 }
 
+function gettile(){
+  for (var i = 0; i < boardsize[0]; i++) {
+    for (var j = 0; j < boardsize[1]; j++) {
+      if(mouseX > i*boarddims[0] + boardoffsets[0] && mouseX < (i+1)*boarddims[0] + boardoffsets[0] && mouseY > j*boarddims[1] + boardoffsets[1] && mouseY < (j+1)*boarddims[1] + boardoffsets[1]){
+        return [i, j];
+      }
+    }
+  }
+  return -1;
+}
+
+
 function mousePressed(){
   if(mode == "MOVE"){
     if(randint.digit == 0){
-      var tile = -1;
-      for (var i = 0; i < boardsize[0]; i++) {
-        for (var j = 0; j < boardsize[1]; j++) {
-          if(mouseX > i*boarddims[0] + boardoffsets[0] && mouseX < (i+1)*boarddims[0] + boardoffsets[0] && mouseY > j*boarddims[1] + boardoffsets[1] && mouseY < (j+1)*boarddims[1] + boardoffsets[1]){
-            tile = [i, j];
-            break;
-          }
-        }
-      }
+      var tile = gettile();
+      console.log(tile);
       for (var i = 0; i < players.length; i++) {
         if(tile[0] == players[i].x && tile[1] == players[i].y && turn != i){
           tile = -1;
@@ -331,6 +368,19 @@ function mousePressed(){
           players[turn].y = tile[1];
           proceed();
         }
+      }
+    }
+    if(randint.digit == 2){
+      var tile = gettile();
+      for (var i = 0; i < players.length; i++) {
+        if(tile[0] == players[i].x && tile[1] == players[i].y && turn != i){
+          tile = -1;
+          break;
+        }
+      }
+      if(searchavaspaces(tile)){
+        walls.push(tile);
+        proceed();
       }
     }
   }
