@@ -213,6 +213,7 @@ function searchspaces(){
     availablespaces = newspaces;
   }
   availablespaces = [];
+  availablespaces.push([players[turn].x, players[turn].y]);
   for (var i = 0; i < spaceswithrepeats.length; i++) {
     for (var j = 0; j < spaceswithrepeats[i].length; j++) {
       if (!searchavaspaces(spaceswithrepeats[i][j])) {
@@ -380,6 +381,9 @@ function mousePressed(){
       }
       if(searchavaspaces(tile)){
         walls.push(tile);
+        proceed();
+      }
+      if(availablespaces.length <= 0 &&  tile[0] == players[turn].x && tile[1] == players[turn].y){
         proceed();
       }
     }
