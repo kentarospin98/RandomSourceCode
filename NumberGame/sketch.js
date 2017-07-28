@@ -94,6 +94,15 @@ function searchwalls(arr){
   return false;
 }
 
+function searchavaspaces(arr){
+  for (var i = 0; i < availablespaces.length; i++) {
+    if (arr[0] == availablespaces[i][0] && arr[1] == availablespaces[i][1]) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function searchspaces(){
   availablespaces = [];
   availablespaces.push([players[turn].x, players[turn].y]);
@@ -130,9 +139,7 @@ function searchspaces(){
 
       // Search Top Left
       if(availablespaces[j][0] > 0 && availablespaces[j][1] > 0){
-        console.log("Im In");
         if(!(searchwalls([availablespaces[j][0] - 1, availablespaces[j][1]]) && searchwalls([availablespaces[j][0], availablespaces[j][1] - 1]))){
-          console.log("Deeper");
           if (!searchwalls([availablespaces[j][0] - 1, availablespaces[j][1] - 1])) {
             newspaces.push([availablespaces[j][0] - 1, availablespaces[j][1] - 1]);
           }
@@ -141,9 +148,7 @@ function searchspaces(){
 
       // Search Top Right
       if(availablespaces[j][0] < boardsize[0] - 1 && availablespaces[j][1] > 0){
-        console.log("Im In");
         if(!(searchwalls([availablespaces[j][0] + 1, availablespaces[j][1]]) && searchwalls([availablespaces[j][0], availablespaces[j][1] - 1]))){
-          console.log("Deeper");
           if (!searchwalls([availablespaces[j][0] + 1, availablespaces[j][1] - 1])) {
             newspaces.push([availablespaces[j][0] + 1, availablespaces[j][1] - 1]);
           }
@@ -152,9 +157,7 @@ function searchspaces(){
 
       // Search Bottom Right
       if(availablespaces[j][0] < boardsize[0] - 1 && availablespaces[j][1] < boardsize[1] - 1){
-        console.log("Im In");
         if(!(searchwalls([availablespaces[j][0] + 1, availablespaces[j][1]]) && searchwalls([availablespaces[j][0], availablespaces[j][1] + 1]))){
-          console.log("Deeper");
           if (!searchwalls([availablespaces[j][0] + 1, availablespaces[j][1] + 1])) {
             newspaces.push([availablespaces[j][0] + 1, availablespaces[j][1] + 1]);
           }
@@ -163,9 +166,7 @@ function searchspaces(){
 
       // Search Bottom Left
       if(availablespaces[j][0] > 0 && availablespaces[j][1] < boardsize[1] - 1){
-        console.log("Im In");
         if(!(searchwalls([availablespaces[j][0] - 1, availablespaces[j][1]]) && searchwalls([availablespaces[j][0], availablespaces[j][1] + 1]))){
-          console.log("Deeper");
           if (!searchwalls([availablespaces[j][0] - 1, availablespaces[j][1] + 1])) {
             newspaces.push([availablespaces[j][0] - 1, availablespaces[j][1] + 1]);
           }
@@ -179,14 +180,8 @@ function searchspaces(){
   availablespaces = [];
   for (var i = 0; i < spaceswithrepeats.length; i++) {
     for (var j = 0; j < spaceswithrepeats[i].length; j++) {
-      var repeat = false;
-      for (var k = 0; k < availablespaces.length; k++) {
-        if(spaceswithrepeats[i][j][0] == availablespaces[k][0] && spaceswithrepeats[i][j][1] == availablespaces[k][1]){
-          repeat = true;
-        }
-      }
-      if (!repeat) {
-          availablespaces.push(spaceswithrepeats[i][j]);
+      if (!searchavaspaces(spaceswithrepeats[i][j])) {
+        availablespaces.push(spaceswithrepeats[i][j]);
       }
     }
   }
@@ -323,7 +318,7 @@ function mousePressed(){
             break;
           }
         }
-      }+ boardoffsets[1]
+      }
       for (var i = 0; i < players.length; i++) {
         if(tile[0] == players[i].x && tile[1] == players[i].y && turn != i){
           tile = -1;
@@ -331,9 +326,11 @@ function mousePressed(){
         }
       }
       if(tile != -1+ boardoffsets[1] && abs(players[turn].x - tile[0]) <= 2 && abs(players[turn].y - tile[1]) <= 2){
-        players[turn].x = tile[0];
-        players[turn].y = tile[1];
-        proceed();
+        if(searchavaspaces(tile)){
+          players[turn].x = tile[0];
+          players[turn].y = tile[1];
+          proceed();
+        }
       }
     }
   }
