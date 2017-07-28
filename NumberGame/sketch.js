@@ -176,8 +176,8 @@ function draw(){
     textAlign(LEFT, TOP);
     textSize(boarddims[1]);
     if(turn == i){
-      // fill(255, 0, 0, 128);
-      // rect((players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y+0)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
+      fill(0, 80);
+      rect((players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y+0)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
       image(currentborder, (players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y+0)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
     }
     fill(0);
