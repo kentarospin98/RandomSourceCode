@@ -179,7 +179,15 @@ function searchspaces(){
   availablespaces = [];
   for (var i = 0; i < spaceswithrepeats.length; i++) {
     for (var j = 0; j < spaceswithrepeats[i].length; j++) {
-      availablespaces.push(spaceswithrepeats[i][j]);
+      var repeat = false;
+      for (var k = 0; k < availablespaces.length; k++) {
+        if(spaceswithrepeats[i][j][0] == availablespaces[k][0] && spaceswithrepeats[i][j][1] == availablespaces[k][1]){
+          repeat = true;
+        }
+      }
+      if (!repeat) {
+          availablespaces.push(spaceswithrepeats[i][j]);
+      }
     }
   }
   // console.log("Available", availablespaces);
@@ -288,7 +296,7 @@ function draw(){
   }
   // console.log(availablespaces);
   for (var i = 0; i < availablespaces.length; i++) {
-    fill(255, 0, 0);
+    fill(0, 64*(sin(frameCount/15)+1));
     // console.log(availablespaces[i]);
     rect((availablespaces[i][0])*boarddims[0] + boardoffsets[0], (availablespaces[i][1])*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
   }
