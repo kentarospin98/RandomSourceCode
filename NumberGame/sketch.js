@@ -118,7 +118,7 @@ function preload(){
 
 function setup(){
   // createCanvas(800, 600);
-  createCanvas(document.body.clientWidth, document.body.clientHeight);
+  createCanvas(document.body.clientHeight*2, document.body.clientHeight);
   // fullScreen();
 
   gsz = [height, height];
