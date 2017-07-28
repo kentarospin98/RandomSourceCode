@@ -115,8 +115,63 @@ function searchspaces(){
           newspaces.push([availablespaces[j][0] + 1, availablespaces[j][1]]);
         }
       }
-            // Search Top
-            // Search Bottom
+      // Search Top
+      if(availablespaces[j][1] > 0){
+        if (!searchwalls([availablespaces[j][0], availablespaces[j][1] - 1])) {
+          newspaces.push([availablespaces[j][0], availablespaces[j][1] - 1]);
+        }
+      }
+      // Search Bottom
+      if(availablespaces[j][1] < boardsize[1] - 1){
+        if (!searchwalls([availablespaces[j][0], availablespaces[j][1] + 1])) {
+          newspaces.push([availablespaces[j][0], availablespaces[j][1] + 1]);
+        }
+      }
+
+      // Search Top Left
+      if(availablespaces[j][0] > 0 && availablespaces[j][1] > 0){
+        console.log("Im In");
+        if(!(searchwalls([availablespaces[j][0] - 1, availablespaces[j][1]]) && searchwalls([availablespaces[j][0], availablespaces[j][1] - 1]))){
+          console.log("Deeper");
+          if (!searchwalls([availablespaces[j][0] - 1, availablespaces[j][1] - 1])) {
+            newspaces.push([availablespaces[j][0] - 1, availablespaces[j][1] - 1]);
+          }
+        }
+      }
+
+      // Search Top Right
+      if(availablespaces[j][0] < boardsize[0] - 1 && availablespaces[j][1] > 0){
+        console.log("Im In");
+        if(!(searchwalls([availablespaces[j][0] + 1, availablespaces[j][1]]) && searchwalls([availablespaces[j][0], availablespaces[j][1] - 1]))){
+          console.log("Deeper");
+          if (!searchwalls([availablespaces[j][0] + 1, availablespaces[j][1] - 1])) {
+            newspaces.push([availablespaces[j][0] + 1, availablespaces[j][1] - 1]);
+          }
+        }
+      }
+
+      // Search Bottom Right
+      if(availablespaces[j][0] < boardsize[0] - 1 && availablespaces[j][1] < boardsize[1] - 1){
+        console.log("Im In");
+        if(!(searchwalls([availablespaces[j][0] + 1, availablespaces[j][1]]) && searchwalls([availablespaces[j][0], availablespaces[j][1] + 1]))){
+          console.log("Deeper");
+          if (!searchwalls([availablespaces[j][0] + 1, availablespaces[j][1] + 1])) {
+            newspaces.push([availablespaces[j][0] + 1, availablespaces[j][1] + 1]);
+          }
+        }
+      }
+
+      // Search Bottom Left
+      if(availablespaces[j][0] > 0 && availablespaces[j][1] < boardsize[1] - 1){
+        console.log("Im In");
+        if(!(searchwalls([availablespaces[j][0] - 1, availablespaces[j][1]]) && searchwalls([availablespaces[j][0], availablespaces[j][1] + 1]))){
+          console.log("Deeper");
+          if (!searchwalls([availablespaces[j][0] - 1, availablespaces[j][1] + 1])) {
+            newspaces.push([availablespaces[j][0] - 1, availablespaces[j][1] + 1]);
+          }
+        }
+      }
+
     }
     spaceswithrepeats.push(newspaces);
     availablespaces = newspaces;
@@ -234,7 +289,7 @@ function draw(){
   // console.log(availablespaces);
   for (var i = 0; i < availablespaces.length; i++) {
     fill(255, 0, 0);
-    console.log(availablespaces[i]);
+    // console.log(availablespaces[i]);
     rect((availablespaces[i][0])*boarddims[0] + boardoffsets[0], (availablespaces[i][1])*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
   }
 
