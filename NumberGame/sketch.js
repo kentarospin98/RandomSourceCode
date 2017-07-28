@@ -13,6 +13,7 @@ var currentborder;
 var boardbackground;
 var randintsprites;
 var font;
+var availablespaces;
 
 function displaypnames(){
   fill(255);
@@ -84,6 +85,51 @@ function randomiser(){
   }
 }
 
+function searchwalls(arr){
+  for (var k = 0; k < walls.length; k++) {
+    if(walls[k][0] == arr[0] && walls[k][1] == arr[1]){
+      return true;
+    }
+  }
+  return false;
+}
+
+function searchspaces(){
+  availablespaces = [];
+  availablespaces.push([players[turn].x, players[turn].y]);
+  var spaceswithrepeats = [];
+  for (var i = 0; i < 2; i++) {
+    var newspaces = []
+    // console.log("Loop" + i);
+    for (var j = 0; j < availablespaces.length; j++) {
+
+      // Search Left
+      if(availablespaces[j][0] > 0){
+        if (!searchwalls([availablespaces[j][0] - 1, availablespaces[j][1]])) {
+          newspaces.push([availablespaces[j][0] - 1, availablespaces[j][1]]);
+        }
+      }
+      // Search Right
+      if(availablespaces[j][0] < boardsize[0] - 1){
+        if (!searchwalls([availablespaces[j][0] + 1, availablespaces[j][1]])) {
+          newspaces.push([availablespaces[j][0] + 1, availablespaces[j][1]]);
+        }
+      }
+            // Search Top
+            // Search Bottom
+    }
+    spaceswithrepeats.push(newspaces);
+    availablespaces = newspaces;
+  }
+  availablespaces = [];
+  for (var i = 0; i < spaceswithrepeats.length; i++) {
+    for (var j = 0; j < spaceswithrepeats[i].length; j++) {
+      availablespaces.push(spaceswithrepeats[i][j]);
+    }
+  }
+  // console.log("Available", availablespaces);
+}
+
 function preload(){
   wallsprites = [];
   playersymbols = [];
@@ -117,6 +163,7 @@ function preload(){
 }
 
 function setup(){
+  // frameRate(2);
   // createCanvas(800, 600);
   createCanvas(document.body.clientHeight*2, document.body.clientHeight);
   // fullScreen();
@@ -142,6 +189,7 @@ function setup(){
       players.push(new player(inp,playersymbols[i] , PLAYERPRESET[i][0], PLAYERPRESET[i][1]));
     }
   }
+  availablespaces = [];
   turn = 0;
   randint = new randomiser();
   mode = "SPIN";
@@ -177,16 +225,23 @@ function draw(){
     textSize(boarddims[1]);
     if(turn == i){
       fill(0, 80);
-      rect((players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y+0)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
-      image(currentborder, (players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y+0)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
+      rect((players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
+      image(currentborder, (players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
     }
     fill(0);
-    image(players[i].symbol, (players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y+0)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
+    image(players[i].symbol, (players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
+  }
+  // console.log(availablespaces);
+  for (var i = 0; i < availablespaces.length; i++) {
+    fill(255, 0, 0);
+    console.log(availablespaces[i]);
+    rect((availablespaces[i][0])*boarddims[0] + boardoffsets[0], (availablespaces[i][1])*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
   }
 
   if(mode == "SPIN" && frameCount%2 == 0){
     if(randint.random()){
-      mode = "MOVE"
+      mode = "MOVE";
+      searchspaces();
     }
   }
   displaypnames();
