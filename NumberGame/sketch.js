@@ -150,7 +150,7 @@ function setup(){
 }
 
 function draw(){
-  background(128);
+  background("#373737");
 
   fill(0, 255);
   image(boardbackground, boardoffsets[0], boardoffsets[1], boarddims[0]*boardsize[0], boarddims[1]*boardsize[1]);
