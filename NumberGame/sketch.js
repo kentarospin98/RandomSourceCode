@@ -312,10 +312,12 @@ function setup(){
   // fullScreen();
 
   gsz = [height, height];
+  const DIFFICULTY = [[5],[7],[9],[11]]
+  var inp;
   do{
-    var wid = int(prompt("Enter the board width, more than or equal to 5"));
-  }while(!(wid >= 5));
-  hig = wid;
+    inp = int(prompt("Select a Board Size Setting. Enter The number\n1 for Tiny\n2 for Medium\n3 for Huge\n4 for Insane"));
+  }while(!(inp > 0 && inp < 5));
+  hig = wid = DIFFICULTY[inp - 1];
 
   boardsize = [wid, hig];
   boardoffsets = [width/48, height/27];
