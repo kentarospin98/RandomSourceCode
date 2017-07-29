@@ -118,6 +118,42 @@ function searchbuild(){
       availablespaces.push([players[turn].x, players[turn].y + 1]);
     }
   }
+
+  // Search Top Left
+  if(players[turn].x > 0 && players[turn].y > 0){
+    if(!(searchwalls([players[turn].x - 1, players[turn].y]) && searchwalls([players[turn].x, players[turn].y - 1]))){
+      if (!searchwalls([players[turn].x - 1, players[turn].y - 1])) {
+        availablespaces.push([players[turn].x - 1, players[turn].y - 1]);
+      }
+    }
+  }
+
+  // Search Top Right
+  if(players[turn].x < boardsize[0] - 1 && players[turn].y > 0){
+    if(!(searchwalls([players[turn].x + 1, players[turn].y]) && searchwalls([players[turn].x, players[turn].y - 1]))){
+      if (!searchwalls([players[turn].x + 1, players[turn].y - 1])) {
+        availablespaces.push([players[turn].x + 1, players[turn].y - 1]);
+      }
+    }
+  }
+
+  // Search Bottom Right
+  if(players[turn].x < boardsize[0] - 1 && players[turn].y < boardsize[1] - 1){
+    if(!(searchwalls([players[turn].x + 1, players[turn].y]) && searchwalls([players[turn].x, players[turn].y + 1]))){
+      if (!searchwalls([players[turn].x + 1, players[turn].y + 1])) {
+        availablespaces.push([players[turn].x + 1, players[turn].y + 1]);
+      }
+    }
+  }
+
+  // Search Bottom Left
+  if(players[turn].x > 0 && players[turn].y < boardsize[1] - 1){
+    if(!(searchwalls([players[turn].x - 1, players[turn].y]) && searchwalls([players[turn].x, players[turn].y + 1]))){
+      if (!searchwalls([players[turn].x - 1, players[turn].y + 1])) {
+        availablespaces.push([players[turn].x - 1, players[turn].y + 1]);
+      }
+    }
+  }
 }
 
 function searchwalls(arr){
