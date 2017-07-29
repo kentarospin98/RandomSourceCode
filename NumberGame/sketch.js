@@ -56,7 +56,6 @@ function player(name, symbol, x, y){
 function randomiser(){
   this.digit = int(random(5));
   this.spincount = 40;
-  this.movetype = "Type 0"
 
   this.random = function(){
     this.digit = int(random(5));
@@ -64,15 +63,12 @@ function randomiser(){
     this.spincount--;
     if(this.spincount <= 0){
       if(this.digit == 0){
-        this.movetype = "Move";
         mode = "MOVE";
         searchspaces();
       }else if(this.digit == 2){
-        this.movetype = "Build";
         mode = "MOVE";
         searchbuild();
       }else{
-        this.movetype = "Type " + str(this.digit);
         mode = "SPIN";
       }
       return true;
@@ -426,12 +422,6 @@ function mousePressed(){
     }
     if(randint.digit == 2){
       var tile = gettile();
-      for (var i = 0; i < players.length; i++) {
-        if(tile[0] == players[i].x && tile[1] == players[i].y && turn != i){
-          tile = -1;
-          break;
-        }
-      }
       if(searchavaspaces(tile)){
         walls.push(tile);
         proceed();
