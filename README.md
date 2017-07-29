@@ -8,7 +8,7 @@ This project is basically about a simple board game which we devised as a pastim
 
  1. You have to choose length of one side of the board(the number of small box which players will place)
  
-  	######**Recommanded board size for games**
+  	###### **Recommanded board size for games**
     
     |Players|Board Size|
     |---|---|
