@@ -55,7 +55,7 @@ function player(name, symbol, x, y){
 
 function randomiser(){
   this.digit = int(random(5));
-  this.spincount = 40;
+  this.spincount = 6;
 
   this.random = function(){
     this.digit = int(random(5));
@@ -65,14 +65,18 @@ function randomiser(){
       if(this.digit == 0){
         mode = "MOVE";
         searchspaces();
+        this.spincount = 6;
       }else if(this.digit == 2){
         mode = "MOVE";
         searchbuildbreak();
+        this.spincount = 6;
       }else if(this.digit == 3){
-          mode = "MOVE";
-          searchbuildbreak(false);
+        mode = "MOVE";
+        searchbuildbreak(false);
+        this.spincount = 6;
       }else{
         mode = "SPIN";
+        this.spincount = 6;
       }
       return true;
     }
@@ -311,7 +315,7 @@ function preload(){
 function setup(){
   // frameRate(2);
   // createCanvas(800, 600);
-  createCanvas(document.body.clientHeight*2, document.body.clientHeight);
+  createCanvas(document.body.clientHeight*2, document.body.clientHeight, P2D);
   // fullScreen();
 
   gsz = [height, height];
@@ -381,13 +385,14 @@ function draw(){
     image(players[i].symbol, (players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
   }
   // console.log(availablespaces);
-  for (var i = 0; i < availablespaces.length; i++) {
-    fill(0, 64*(sin(frameCount/15)+1));
-    // console.log(availablespaces[i]);
-    rect((availablespaces[i][0])*boarddims[0] + boardoffsets[0], (availablespaces[i][1])*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
+  if(mode == "MOVE"){
+    for (var i = 0; i < availablespaces.length; i++) {
+      fill(0, 64*(sin(frameCount/15)+1));
+      // console.log(availablespaces[i]);
+      rect((availablespaces[i][0])*boarddims[0] + boardoffsets[0], (availablespaces[i][1])*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
+    }
   }
-
-  if(mode == "SPIN" && frameCount%3 == 0){
+  if(mode == "SPIN" && frameCount%5 == 0){
     randint.random();
   }
   displaypnames();
