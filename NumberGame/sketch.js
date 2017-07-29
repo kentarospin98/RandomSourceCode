@@ -154,6 +154,23 @@ function searchbuild(){
       }
     }
   }
+
+  var newavaspaces = []
+  for (var i = 0; i < availablespaces.length; i++) {
+    if (!searchplayers(availablespaces[i])) {
+      newavaspaces.push(availablespaces[i]);
+    }
+  }
+  availablespaces = newavaspaces;
+}
+
+function searchplayers(arr, except=-1){
+  for (var k = 0; k < players.length; k++) {
+    if(players[k].x == arr[0] && players[k].y == arr[1] && !(except == k)){
+      return true;
+    }
+  }
+  return false;
 }
 
 function searchwalls(arr){
