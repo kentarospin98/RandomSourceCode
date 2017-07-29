@@ -431,7 +431,21 @@ function mousePressed(){
         walls.push(tile);
         proceed();
       }
-      if(availablespaces.length <= 0 &&  tile[0] == players[turn].x && tile[1] == players[turn].y){
+      if(availablespaces.length == 0 &&  tile[0] == players[turn].x && tile[1] == players[turn].y){
+        proceed();
+      }
+    }
+    if(randint.digit == 3){
+      var tile = gettile();
+      if(searchavaspaces(tile)){
+        for (var i = 0; i < walls.length; i++) {
+          if(walls[i][0] == tile[0] && walls[i][1] == tile[1]){
+            walls.splice(i, 1);
+          }
+        }
+        proceed();
+      }
+      if(availablespaces.length == 0 &&  tile[0] == players[turn].x && tile[1] == players[turn].y){
         proceed();
       }
     }
