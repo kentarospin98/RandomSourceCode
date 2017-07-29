@@ -7,7 +7,9 @@ This project is basically about a simple board game which we devised as a pastim
   It is a simple board game you can play in online using random integer function. You should know some rules before play
 
  1. You have to choose length of one side of the board(the number of small box which players will place)
+ 
   	######**Recommanded board size for games**
+    
     |Players|Board Size|
     |---|---|
     |2|5x5|
