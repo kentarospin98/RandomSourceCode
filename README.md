@@ -1,13 +1,14 @@
 # HADA presents Z<sub>yr</sub>
 ___
-### What are our project is
+### What is our project is
 This project is basically a simple board game which we created as a pastime in our free periods.
 
 ### How to use it
   It is a simple board game you can play in online using random integer function. You should know some rules before play
 
  1. You have to choose length of one side of the board(the number of small box which players will place)
-  	######**Recommanded board size for games**
+  	###### **Recommanded board size for games**
+    
     |Players|Board Size|
     |---|---|
     |2|5x5|
@@ -36,7 +37,7 @@ This project is basically a simple board game which we created as a pastime in o
     
 ### Why we made it:
 
-  We have enjoyed random integer game during free period so that we want to share our idea through this project and makes others also can   enjoy this game.
+  We have enjoyed random integer game during free period so that we want to share our idea through this project and makes others also can enjoy this game.
 
 ___
 
