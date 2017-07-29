@@ -67,7 +67,10 @@ function randomiser(){
         searchspaces();
       }else if(this.digit == 2){
         mode = "MOVE";
-        searchbuild();
+        searchbuildbreak();
+      }else if(this.digit == 3){
+          mode = "MOVE";
+          searchbuildbreak(false);
       }else{
         mode = "SPIN";
       }
@@ -88,29 +91,29 @@ function randomiser(){
   }
 }
 
-function searchbuild(){
+function searchbuildbreak(build=true){
   availablespaces = [];
   // Search Left
   if(players[turn].x > 0){
-    if (!searchwalls([players[turn].x - 1, players[turn].y])) {
+    if (searchwalls([players[turn].x - 1, players[turn].y]) ? !build : build) {
       availablespaces.push([players[turn].x - 1, players[turn].y]);
     }
   }
   // Search Right
   if(players[turn].x < boardsize[0] - 1){
-    if (!searchwalls([players[turn].x + 1, players[turn].y])) {
+    if (searchwalls([players[turn].x + 1, players[turn].y])? !build : build) {
       availablespaces.push([players[turn].x + 1, players[turn].y]);
     }
   }
   // Search Top
   if(players[turn].y > 0){
-    if (!searchwalls([players[turn].x, players[turn].y - 1])) {
+    if (searchwalls([players[turn].x, players[turn].y - 1])? !build : build) {
       availablespaces.push([players[turn].x, players[turn].y - 1]);
     }
   }
   // Search Bottom
   if(players[turn].y < boardsize[1] - 1){
-    if (!searchwalls([players[turn].x, players[turn].y + 1])) {
+    if (searchwalls([players[turn].x, players[turn].y + 1])? !build : build) {
       availablespaces.push([players[turn].x, players[turn].y + 1]);
     }
   }
@@ -118,7 +121,7 @@ function searchbuild(){
   // Search Top Left
   if(players[turn].x > 0 && players[turn].y > 0){
     if(!(searchwalls([players[turn].x - 1, players[turn].y]) && searchwalls([players[turn].x, players[turn].y - 1]))){
-      if (!searchwalls([players[turn].x - 1, players[turn].y - 1])) {
+      if (searchwalls([players[turn].x - 1, players[turn].y - 1]) ? !build : build) {
         availablespaces.push([players[turn].x - 1, players[turn].y - 1]);
       }
     }
@@ -127,7 +130,7 @@ function searchbuild(){
   // Search Top Right
   if(players[turn].x < boardsize[0] - 1 && players[turn].y > 0){
     if(!(searchwalls([players[turn].x + 1, players[turn].y]) && searchwalls([players[turn].x, players[turn].y - 1]))){
-      if (!searchwalls([players[turn].x + 1, players[turn].y - 1])) {
+      if (searchwalls([players[turn].x + 1, players[turn].y - 1]) ? !build : build) {
         availablespaces.push([players[turn].x + 1, players[turn].y - 1]);
       }
     }
@@ -136,7 +139,7 @@ function searchbuild(){
   // Search Bottom Right
   if(players[turn].x < boardsize[0] - 1 && players[turn].y < boardsize[1] - 1){
     if(!(searchwalls([players[turn].x + 1, players[turn].y]) && searchwalls([players[turn].x, players[turn].y + 1]))){
-      if (!searchwalls([players[turn].x + 1, players[turn].y + 1])) {
+      if (searchwalls([players[turn].x + 1, players[turn].y + 1]) ? !build : build) {
         availablespaces.push([players[turn].x + 1, players[turn].y + 1]);
       }
     }
@@ -145,7 +148,7 @@ function searchbuild(){
   // Search Bottom Left
   if(players[turn].x > 0 && players[turn].y < boardsize[1] - 1){
     if(!(searchwalls([players[turn].x - 1, players[turn].y]) && searchwalls([players[turn].x, players[turn].y + 1]))){
-      if (!searchwalls([players[turn].x - 1, players[turn].y + 1])) {
+      if (searchwalls([players[turn].x - 1, players[turn].y + 1]) ? !build : build) {
         availablespaces.push([players[turn].x - 1, players[turn].y + 1]);
       }
     }
