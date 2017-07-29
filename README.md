@@ -45,7 +45,7 @@ ___
 |Name|Job|
 |---|---|
 |Dhruva Loke|Lead Developer, Junior Visionary Officer|
-|Abhay Srivastava|Lead Graphics Designer, Marketing Director|
-|Allen Jomy|Junior Graphics Designer, Sound Engineer|
+|Abhay Sriwastawa|Lead Graphics Designer, Junior Developer, Junior Visionary Officer|
+|Allen Jomy|Junior Graphics Designer, Sound Creator, Junior Visionary Officer|
 |Junehan Lee|Technical Writer, Junior Visionary Officer|
 
