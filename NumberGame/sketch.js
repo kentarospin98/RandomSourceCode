@@ -95,6 +95,9 @@ function randomiser(){
         mode = "SPIN";
         this.spincount = 6;
       }
+      if(searchwalls([players[turn].x, players[turn].y])){
+        availablespaces = [[players[turn].x, players[turn].y]];
+      }
       return true;
     }
   }
@@ -481,8 +484,7 @@ function mousePressed(){
           proceed();
         }
       }
-    }
-    else if(randint.digit == 3){
+    }else if(randint.digit == 3){
       if(searchwalls([players[turn].x, players[turn].y])){
         availablespaces = [[players[turn].x, players[turn].y]];
       }
