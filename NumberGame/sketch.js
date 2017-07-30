@@ -46,9 +46,22 @@ function proceed(){
   mode = "SPIN"
 }
 
+function hit(player){
+  player.life--;
+  if(player.life == 0){
+    for (var i = 0; i < players.length; i++) {
+      if (players[i].name == player.name) {
+        players.splice(i, 1);
+        break;
+      }
+    }
+  }
+}
+
 function player(name, symbol, x, y){
   this.name = name;
   this.symbol = symbol;
+  this.life = 3;
   this.x = x;
   this.y = y;
 };
