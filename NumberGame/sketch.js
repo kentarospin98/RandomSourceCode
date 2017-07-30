@@ -174,7 +174,7 @@ function searchbuildbreak(build=true){
 
   var newavaspaces = []
   for (var i = 0; i < availablespaces.length; i++) {
-    if (!searchplayers(availablespaces[i])) {
+    if (build ? !searchplayers(availablespaces[i]) : true) {
       newavaspaces.push(availablespaces[i]);
     }
   }
@@ -428,44 +428,61 @@ function gettile(){
 
 
 function mousePressed(){
+  var tile = gettile();
   if(mode == "MOVE"){
-    if(randint.digit == 0){
-      var tile = gettile();
-      var onplayer = false;
-      for (var i = 0; i < players.length; i++) {
-        if(tile[0] == players[i].x && tile[1] == players[i].y && turn != i){
-          pushedplayer = players[i];
-          onplayer = true;
-          break;
+    if(!searchwalls([players[turn].x, players[turn].y])){
+      if(randint.digit == 0){
+        var onplayer = false;
+        for (var i = 0; i < players.length; i++) {
+          if(tile[0] == players[i].x && tile[1] == players[i].y && turn != i && !searchwalls([players[i].x, players[i].y])){
+            pushedplayer = players[i];
+            onplayer = true;
+            break;
+          }
         }
-      }
-      if(tile != -1 && abs(players[turn].x - tile[0]) <= 2 && abs(players[turn].y - tile[1]) <= 2){
-        if(searchavaspaces(tile)){
-          if (onplayer) {
-            searchspaces(1, pushedplayer, true);
-            players[turn].x = tile[0];
-            players[turn].y = tile[1];
-            mode = "PUSH";
-          }else{
-            players[turn].x = tile[0];
-            players[turn].y = tile[1];
-            proceed();
+        if(tile != -1 && abs(players[turn].x - tile[0]) <= 2 && abs(players[turn].y - tile[1]) <= 2){
+          if(searchavaspaces(tile)){
+            if (onplayer) {
+              searchspaces(1, pushedplayer, true);
+              players[turn].x = tile[0];
+              players[turn].y = tile[1];
+              mode = "PUSH";
+            }else{
+              players[turn].x = tile[0];
+              players[turn].y = tile[1];
+              proceed();
+            }
           }
         }
       }
-    }
-    if(randint.digit == 2){
-      var tile = gettile();
-      if(searchavaspaces(tile)){
-        walls.push(tile);
-        proceed();
+      if(randint.digit == 2){
+        if(searchavaspaces(tile)){
+          walls.push(tile);
+          proceed();
+        }
+        if(availablespaces.length == 0 &&  tile[0] == players[turn].x && tile[1] == players[turn].y){
+          proceed();
+        }
       }
-      if(availablespaces.length == 0 &&  tile[0] == players[turn].x && tile[1] == players[turn].y){
-        proceed();
+      if(randint.digit == 3){
+        searchbuildbreak(false);
+        if(searchavaspaces(tile)){
+          for (var i = 0; i < walls.length; i++) {
+            if(walls[i][0] == tile[0] && walls[i][1] == tile[1]){
+              walls.splice(i, 1);
+            }
+          }
+          proceed();
+        }
+        if(availablespaces.length == 0 &&  tile[0] == players[turn].x && tile[1] == players[turn].y){
+          proceed();
+        }
       }
     }
-    if(randint.digit == 3){
-      var tile = gettile();
+    else if(randint.digit == 3){
+      if(searchwalls([players[turn].x, players[turn].y])){
+        availablespaces = [[players[turn].x, players[turn].y]];
+      }
       if(searchavaspaces(tile)){
         for (var i = 0; i < walls.length; i++) {
           if(walls[i][0] == tile[0] && walls[i][1] == tile[1]){
@@ -478,9 +495,10 @@ function mousePressed(){
         proceed();
       }
     }
+    else if(tile[0] == players[turn].x && tile[1] == players[turn].y){
+      proceed();
+    }
   }else if(mode = "PUSH"){
-    console.log("Pushed", pushedplayer.name);
-    var tile = gettile();
     if(tile != -1){
       var newpushedplayer;
       for (var i = 0; i < players.length; i++) {
