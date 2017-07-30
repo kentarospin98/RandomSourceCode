@@ -15,6 +15,7 @@ var randintsprites;
 var font;
 var availablespaces;
 var pushedplayer;
+var sounds;
 
 function displaypnames(){
   fill(255);
@@ -53,6 +54,7 @@ function hit(player){
     for (var i = 0; i < players.length; i++) {
       if (players[i].name == player.name) {
         players.splice(i, 1);
+        sounds[2].play();
         break;
       }
     }
@@ -304,9 +306,21 @@ function preload(){
   wallsprites = [];
   playersymbols = [];
   randintsprites = [];
+  sounds = [];
   font = loadFont("data/Font/Brush.ttf");
   currentborder = loadImage("data/CurrentPlayer/HighlightPlayer.png");
   boardbackground = loadImage("data/Background/Background.png");
+  /**
+  0- Break
+  1- Build
+  2- Die
+  3- Jump
+  4- Move
+  5- Shoot
+  **/
+  for (var i = 0; i < 6; i++) {
+    sounds.push(loadSound("data/Sounds/Sound" + str(i) + ".flac"));
+  }
   for(var i = 1; i < 6; i++){
     var image = loadImage("data/RanInt/RanInt" + str(i) + ".png");
     randintsprites.push(image);
@@ -453,9 +467,11 @@ function mousePressed(){
               players[turn].x = tile[0];
               players[turn].y = tile[1];
               mode = "PUSH";
+              sounds[4].play();
             }else{
               players[turn].x = tile[0];
               players[turn].y = tile[1];
+              sounds[4].play();
               proceed();
             }
           }
@@ -464,6 +480,7 @@ function mousePressed(){
       if(randint.digit == 2){
         if(searchavaspaces(tile)){
           walls.push(tile);
+          sounds[1].play();
           proceed();
         }
         if(availablespaces.length == 0 &&  tile[0] == players[turn].x && tile[1] == players[turn].y){
@@ -478,6 +495,7 @@ function mousePressed(){
               walls.splice(i, 1);
             }
           }
+          sounds[0].play();
           proceed();
         }
         if(availablespaces.length == 0 &&  tile[0] == players[turn].x && tile[1] == players[turn].y){
@@ -494,6 +512,7 @@ function mousePressed(){
             walls.splice(i, 1);
           }
         }
+        sounds[0].play();
         proceed();
       }
       if(availablespaces.length == 0 &&  tile[0] == players[turn].x && tile[1] == players[turn].y){
