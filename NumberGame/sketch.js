@@ -16,6 +16,7 @@ var font;
 var availablespaces;
 var pushedplayer;
 var sounds;
+var pushimage;
 
 function displaypnames(){
   fill(255);
@@ -110,8 +111,11 @@ function randomiser(){
     // textAlign(CENTER, TOP);
     // text(this.digit, (height + width)/2, 0);
     // text(this.movetype, (height + width)/2, boarddims[0]*2);
-
-    image(randintsprites[this.digit], height + boardoffsets[0], boardoffsets[1], 3*(height-2*boardoffsets[1])/4, 3*(height-2*boardoffsets[1])/4);
+    if(mode == "PUSH"){
+      image(pushimage, height   + boardoffsets[0], boardoffsets[1], 3*(height-2*boardoffsets[1])/4, 3*(height-2*boardoffsets[1])/4);
+    }else{
+      image(randintsprites[this.digit], height   + boardoffsets[0], boardoffsets[1], 3*(height-2*boardoffsets[1])/4, 3*(height-2*boardoffsets[1])/4);
+    }
     fill(0, 0);
     rect(height + boardoffsets[0], boardoffsets[1], 3*(height-2*boardoffsets[1])/4, 3*(height-2*boardoffsets[1])/4);
   }
@@ -307,6 +311,7 @@ function preload(){
   playersymbols = [];
   randintsprites = [];
   sounds = [];
+  pushimage = loadImage("data/Push/PushTextBox.png");
   font = loadFont("data/Font/Brush.ttf");
   currentborder = loadImage("data/CurrentPlayer/HighlightPlayer.png");
   boardbackground = loadImage("data/Background/Background.png");
