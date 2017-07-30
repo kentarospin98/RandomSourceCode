@@ -88,6 +88,9 @@ function randomiser(){
         mode = "MOVE";
         searchbuildbreak(false);
         this.spincount = 6;
+      }else if(this.digit == 4){
+        mode = "MOVE"
+        searchspaces(1);
       }else{
         mode = "SPIN";
         this.spincount = 6;
@@ -431,7 +434,7 @@ function mousePressed(){
   var tile = gettile();
   if(mode == "MOVE"){
     if(!searchwalls([players[turn].x, players[turn].y])){
-      if(randint.digit == 0){
+      if(randint.digit == 0 || randint.digit == 4){
         var onplayer = false;
         for (var i = 0; i < players.length; i++) {
           if(tile[0] == players[i].x && tile[1] == players[i].y && turn != i && !searchwalls([players[i].x, players[i].y])){
@@ -440,7 +443,7 @@ function mousePressed(){
             break;
           }
         }
-        if(tile != -1 && abs(players[turn].x - tile[0]) <= 2 && abs(players[turn].y - tile[1]) <= 2){
+        if(tile != -1){
           if(searchavaspaces(tile)){
             if (onplayer) {
               searchspaces(1, pushedplayer, true);
