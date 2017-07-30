@@ -1,0 +1,598 @@
+*   commit 094a62e9f9fc436367969e44183502c6067268b9
+|\  Merge: 9473160 ce346f0
+| | Author: kentarospin98 <asd.dhruva@outlook.com>
+| | Date:   Sun Jul 30 20:25:56 2017 +0530
+| | 
+| |     Merge branch 'master' of https://github.com/kentarospin98/RandomSourceCode
+| |     
+| |     Merged to remote branch
+| | 
+| * commit ce346f00c8dab5a7373f6800417cdfc1b6ac539b
+| | Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| | Date:   Sun Jul 30 20:25:23 2017 +0530
+| | 
+| |     Changed Sound
+| |     
+| |     ~ Changed Move Sound
+| | 
+* | commit 9473160e140b1553cb9983bcf8c9e2a3c29103bb
+|/  Author: kentarospin98 <asd.dhruva@outlook.com>
+|   Date:   Sun Jul 30 20:25:01 2017 +0530
+|   
+|       Added the Push Image
+|       
+|       ~ Added the push image to the randomiser.show() function
+| 
+* commit aca2f32acc98ebb4f3d5933b3fe2501b259b7eb4
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Sun Jul 30 20:17:30 2017 +0530
+| 
+|     Added Sounds
+|     
+|     + Added Break, Build, Die and Move sounds to the game
+| 
+* commit 0959e4d5395dfb657307d7e23e261ea7e4935e05
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Sun Jul 30 19:41:45 2017 +0530
+| 
+|     Only the player's space is displayed as available if the player is in the wall
+|     
+|     + Added a check in the randInt function to see if the player in the wall and change the available spaces accordingly
+| 
+* commit d6f1d036132b6483b1506a7240691e07100e5d01
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Sun Jul 30 19:25:21 2017 +0530
+| 
+|     Added the ability to take a Step
+|     
+|     + added the ability to take a step. step piggybacks from the move ability in mousepressed()
+| 
+* commit 7638311009d22bea375bb6540917653411e7218e
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Sun Jul 30 19:15:25 2017 +0530
+| 
+|     Fixed Major Bugs created during the umplimentation of push
+|     
+|     ~ Fixed the building and breaking of walls on or by a pushed player
+|     ~ Players cannot Move or build if they are in a wall. Players can only break the wall they are in.
+|     ~ Fixed Loads of other bugs
+| 
+* commit c6ac84104d2191e5e6e14eec67f66faa49813bfb
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Sun Jul 30 18:31:14 2017 +0530
+| 
+|     Added the ability to push other players
+|     
+|     + Added the ability to push
+|     + Added the ability to do chain pushed, i.e. A pushes B into C, B pushes C into D, C pushed D into A, etc
+|     ~ Added the ability to push others into walls
+| 
+* commit 67edb2172e6d7e22a615fe860da53e84004c54d3
+| Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| Date:   Sun Jul 30 15:31:04 2017 +0530
+| 
+|     Deleted
+|     
+|     - Deleted useless wall
+| 
+* commit 30bb1a11b7681e7652bf03c5caa52b8926ede826
+| Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| Date:   Sun Jul 30 12:05:12 2017 +0530
+| 
+|     Lives & Push
+|     
+|     + Added Lives Image
+|     + Added Dead Image
+|     + Added Push Image
+| 
+* commit 506293a9b7ad66b34189e5e436eeedb84a4bd7b4
+| Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| Date:   Sun Jul 30 10:13:04 2017 +0530
+| 
+|     Edited GSZ
+|     
+|     - Removed gsz because they are useless
+|     ~ Replaced with "height"
+| 
+* commit 560cd765847610466b8866776556eb990715e9ee
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Sun Jul 30 09:05:02 2017 +0530
+| 
+|     Made Progress on the PUSH function
+|     
+|     + added a pushed player variable
+|     + added a new mode "PUSH"
+|     ~ modified the searchspaces function to accept number of steps and player
+|     ~ Modified the drawing of player to not draw the player if he is being pushed
+|     ~ Allowed moving over players, to trigger mode "PUSH"
+| 
+* commit 9a476b956669a7213fb7d1d9106a174d207d57d1
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Sun Jul 30 08:48:04 2017 +0530
+| 
+|     Added Lives and hit
+|     
+|     + Added a hit function that decreases the players life by 1 and removes them from the game if the health drops to zero
+|     ~ Modified players to have 3 lives
+| 
+* commit 4b1dcc001e6f94e6300d39a95f41e0ad23cd1b7c
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Sat Jul 29 20:09:11 2017 +0530
+| 
+|     Changed the order of player symbols
+|     
+|     ~ Changed the order of player symbols to Abhay Allen Dhruva Han
+| 
+* commit 9ef9b2d7c578c215eeec051ed3e462483f96bd1e
+| Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| Date:   Sat Jul 29 20:02:47 2017 +0530
+| 
+|     Edited
+|     
+|     ~ Edited Name & Jobs
+|   
+*   commit 87b611e9840b5b5a569355198e291deafb19a30c
+|\  Merge: d305c6e b3aab64
+| | Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| | Date:   Sat Jul 29 19:58:13 2017 +0530
+| | 
+| |     Merge branch 'master' of https://github.com/kentarospin98/RandomSourceCode
+| | 
+| * commit b3aab643bdacab547b566f7db2bbb7547b5d32b6
+| | Author: kentarospin98 <asd.dhruva@outlook.com>
+| | Date:   Sat Jul 29 19:46:20 2017 +0530
+| | 
+| |     Fixed Formatting
+| |     
+| |     ~ Fixed table and Table caption formatting again
+| |   
+| *   commit 4fdef9b3d123a8ae71c6248c1e1bbb7b82ff4b73
+| |\  Merge: 2a881c9 e09da03
+| | | Author: kentarospin98 <asd.dhruva@outlook.com>
+| | | Date:   Sat Jul 29 19:40:33 2017 +0530
+| | | 
+| | |     Merge branch 'master' of https://github.com/kentarospin98/RandomSourceCode
+| | | 
+| * | commit 2a881c9b790bff0ceb0e64e47051e3b271ca27d6
+| | | Author: kentarospin98 <asd.dhruva@outlook.com>
+| | | Date:   Sat Jul 29 19:39:32 2017 +0530
+| | | 
+| | |     Refined README.md
+| | |     
+| | |     + Added a credits section
+| | |     ~ Fixed grammer and formatting
+| | |     ~ Changed the title
+| | | 
+* | | commit d305c6ebd62ac9339885eca49c4fc4f122cd2054
+| |/  Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+|/|   Date:   Sat Jul 29 19:39:26 2017 +0530
+| |   
+| |       Logs & Stuff
+| |       
+| |       + Added Logo Video (Plus Extra Stuff)
+| |       - Deleted Unnecessary Items
+| | 
+* | commit e09da0394fe22eb10d0e20fe8c83a7c9ab583274
+|/  Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+|   Date:   Sat Jul 29 16:29:46 2017 +0530
+|   
+|       Broken Walls & RanInt5
+|       
+|       ~ Changed Broken Walls
+|       ~ Changed RanInt5 to be Step
+| 
+* commit 488f718a0219eaddf9ba164b600630174ae0899a
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Sat Jul 29 15:43:05 2017 +0530
+| 
+|     Made the random Int Counter Slower
+|     
+|     ~ Made the random int counter slower
+|     ~ Available spaces is only displayed when mode == "Move", ie when player has to act
+| 
+* commit 3319317bca90c33300d2533138984909ca56025c
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Sat Jul 29 15:23:41 2017 +0530
+| 
+|     Added the abilty to break walls
+|     
+|     + Added the ability top break walls
+| 
+* commit 6d54894977941c0bbb490a145f58342f8172bdda
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Sat Jul 29 15:11:48 2017 +0530
+| 
+|     Changed the search build spaces function to search for break spaces too
+|     
+|     + Copied favicon.ico to the root of the repository
+|     ~ Changed search build to accept a boolean to ask it to search for break instead
+| 
+* commit 77b01e9e09fc3c4b4280a2b24d5d11e5762b2a6d
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Sat Jul 29 14:52:27 2017 +0530
+| 
+|     Replaced Abilty to choose board size with difficulty setting
+|     
+|     ~ Changed the setup to have a difficulty setting rather than a prompt for a number for height and width for the game board
+| 
+* commit 4ace0c133c4c5c85a8080b52a3d2cffec10123ab
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Sat Jul 29 14:41:29 2017 +0530
+| 
+|     Removed unnecessary Peices of code
+|     
+|     - Checking if a build tile was a player tile at the time of building as this has been implimented in the search build spots function
+|     - Move type property of randomiser as this can been seen using the digit property
+| 
+* commit a8e6097cffd0d1f1ad84633e24d0c482456b5ac9
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Sat Jul 29 14:37:18 2017 +0530
+| 
+|     Removed the possibilty of having Players as available Build Positions
+|     
+|     + Added a search players function
+|     ~ Search Build Position function removes player spots
+| 
+* commit 6daa06f9dd2ee539e0b25d5b1cbdd1b05615c009
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Sat Jul 29 14:29:56 2017 +0530
+| 
+|     Added Ability to Build Diagonally
+|     
+|     ~ Chaned The Search Available build spots function to detect Diagonal Spots
+| 
+* commit 2306da5fe25f416461389d70ff7e7ca6a329a946
+| Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| Date:   Sat Jul 29 13:38:39 2017 +0530
+| 
+|     Broken Walls
+|     
+|     + Added Broken Walls Images
+| 
+* commit cbeb3ba0f7417792eb745008ed1107100c74e64f
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Sat Jul 29 09:27:02 2017 +0530
+| 
+|     Tried to fix the table heading
+|     
+|     ~ Added space to fix the heading
+| 
+* commit f06fa1ec886a1fae2d5067e1f77cba51832b42ae
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Sat Jul 29 09:26:03 2017 +0530
+| 
+|     Tried to fix the table
+|     
+|     ~ Added extra lines to fix the tables
+| 
+* commit e69a3734f2254e06f47ad586e740fe280714ccf7
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Sat Jul 29 09:21:54 2017 +0530
+| 
+|     Added Formatting and some basic changes to README.md
+|     
+|     + Added a table for boardsize and players
+|     ~ Modified The Markdown syntax
+| 
+* commit d2965bfb3b9c78d74a733856d39a406d2cad2577
+| Author: JunehanLee <30474870+JunehanLee@users.noreply.github.com>
+| Date:   Fri Jul 28 22:11:37 2017 +0530
+| 
+|     Update readme
+|     
+|     Add What are our project is
+|     Add How to use it
+|     Add Why we made this
+|     *Need to be added more
+| 
+* commit 2cd0809cdf6727c72829300631f3c9c90d4bf0c5
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Fri Jul 28 20:52:54 2017 +0530
+| 
+|     Added Abilty to Not build if you cant
+|     
+|     ~ If No Spaces are Available to Build You Can Skip Your Turn
+| 
+* commit 20a65503b981aeb881112b959b7c080330c2e6fb
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Fri Jul 28 20:26:31 2017 +0530
+| 
+|     Added Build
+|     
+|     + Added Build Functionality
+|     ~ Moved Getting tile Position to its own position
+|     ~ Re-enabled the RandInt Box randomisation
+| 
+* commit 3a68084a7e4ca8d606a5833ea9c4393d9b442e4e
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Fri Jul 28 18:19:12 2017 +0530
+| 
+|     Restricted Movement to available move tiles
+|     
+|     ~ Added a searchavaspaces() function
+|     ~ Move is only possible if tile is In the Available Tiles
+| 
+* commit 1bc767f28fa0d1734d789beaa610bf599a09066f
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Fri Jul 28 18:06:49 2017 +0530
+| 
+|     Changed The Wall Positions
+|     
+|     ~ Changed the Wall Positions to be at the center for the Borders and the game board
+| 
+* commit 8e4176f7da92322c938260254b129bc9979e6938
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Fri Jul 28 17:56:06 2017 +0530
+| 
+|     Changed the Search Available function to prevent repeats
+|     
+|     ~ Available Move spaces dont repeat
+|     ~ The Tiles for available movespaces fade with a sine() curve brightness
+| 
+* commit bd6d453939a8b145bf37dc0020f28d42f50e7ffc
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Fri Jul 28 17:39:22 2017 +0530
+| 
+|     Added Searching in Y axis for the Search Available Function
+|     
+|     ~ Search Function can now search for movable places Up Down and Diagonally
+|   
+*   commit 4d1db8c78880b9856bfa60334136f7f09f77e39f
+|\  Merge: dd4e864 8d3b213
+| | Author: kentarospin98 <asd.dhruva@outlook.com>
+| | Date:   Fri Jul 28 16:30:59 2017 +0530
+| | 
+| |     Merge branch 'master' of https://github.com/kentarospin98/RandomSourceCode
+| |     
+| |     Merging to Local Branch
+| | 
+| * commit 8d3b21362d0f89f144012a7707a9c6658b528e38
+| | Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| | Date:   Fri Jul 28 15:29:04 2017 +0530
+| | 
+| |     Buttons
+| |     
+| |     + Added Button Images
+| | 
+| * commit 45758d7ff825b07f37ad88535b70ace846f582ac
+| | Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| | Date:   Fri Jul 28 15:19:57 2017 +0530
+| | 
+| |     Highlight Player
+| |     
+| |     ~ Changed the border thickness of the Current Player Highlight
+| | 
+| * commit 12464c6959a7c585d8932e97f234cd8491490511
+| | Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| | Date:   Fri Jul 28 15:16:20 2017 +0530
+| | 
+| |     Background
+| |     
+| |     + Added Player Name Box Background Image
+| | 
+* | commit dd4e864f27123420f6670ecdd61011c688dbf867
+|/  Author: kentarospin98 <asd.dhruva@outlook.com>
+|   Date:   Fri Jul 28 16:26:56 2017 +0530
+|   
+|       Added Search Available Spaces function
+|       
+|       + Searches for available move spaces left and right
+|       + Sets Their Color Red
+| 
+* commit d30dc56ab0c3d507d56da5fcdfc56f285db75994
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Fri Jul 28 15:03:28 2017 +0530
+| 
+|     Added a current player highlight
+|     
+|     - removed HighlightPlayerBG as it was not required
+|     ~ Make a grey background for the current player
+|   
+*   commit 525aaf34ae575828770d67a217e46b54d9d15bed
+|\  Merge: 2c720a0 b943ed9
+| | Author: kentarospin98 <asd.dhruva@outlook.com>
+| | Date:   Fri Jul 28 14:58:37 2017 +0530
+| | 
+| |     Merge branch 'master' of https://github.com/kentarospin98/RandomSourceCode
+| | 
+| * commit b943ed9c633215c13d6b4a21e6a824717082e2e7
+| | Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| | Date:   Fri Jul 28 14:52:20 2017 +0530
+| | 
+| |     Highlight Player
+| |     
+| |     + Added Highlight Player BG
+| |     - Deletd Old Highlight Player
+| | 
+* | commit 2c720a0443374f449cf110b1994d561eccb5e990
+| | Author: kentarospin98 <asd.dhruva@outlook.com>
+| | Date:   Fri Jul 28 14:57:44 2017 +0530
+| | 
+| |     Changed the background color to #373737
+| |     
+| |     ~ Changed the HTML and sketch bgcolor to #373737
+| | 
+* | commit 92fdd89b38b3aaccca9c0f478708b692ab0d69c1
+|/  Author: kentarospin98 <asd.dhruva@outlook.com>
+|   Date:   Fri Jul 28 14:51:26 2017 +0530
+|   
+|       Made the aspect ratio Fixed 2:1
+|       
+|       ~ Modified the width to always be equal to twice the height
+| 
+* commit 1f8028f55c75e74157e8058de14e291b534addaa
+| Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| Date:   Thu Jul 27 18:30:42 2017 +0530
+| 
+|     Fixed Bugs with player name and added fonts
+|     
+|     + Added Fonts for player names
+|     + Added favicon.ico
+|     ~ Moved Loading of images and fonts to Preload Function
+|     ~ Fixed Bugs With Rendering the Randint and Player names box on Not Standard Aspect Ratios
+| 
+* commit bb7b3bdb8319fd6dcacc49be46950581cc92e596
+| Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| Date:   Thu Jul 27 17:03:40 2017 +0530
+| 
+|     RanInt
+|     
+|     Added New RanInt Images
+| 
+* commit 051c1ce1ce6477286ae47434e65626916313bb8b
+| Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| Date:   Thu Jul 27 16:44:17 2017 +0530
+| 
+|     Sounds
+|     
+|     Added sounds for move shoot build break die and jump.
+| 
+* commit 42a58b3a9ab9abf9ab5915b66b0907707b3f59bb
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Thu Jul 27 11:14:51 2017 +0530
+| 
+|     Added Player name, symbols And The RandInt Box
+|     
+|     + Player Name Box
+|     + Player Names
+|     + RandInt Box
+|     ~ Max Player Size
+| 
+* commit e82bcdeb508d4b85f079ae95e590ffbc1f135f52
+| Author: Allen <allenjomy@gmail.com>
+| Date:   Wed Jul 26 18:54:37 2017 +0530
+| 
+|     Add files via upload
+| 
+* commit c8c705911cb411cee7463c8bb2106784594993bc
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Wed Jul 26 18:34:05 2017 +0530
+| 
+|     Organised Files and Make the Playing Field Square Only
+|     
+|     - Option to choose Height for board
+|     ~ Moved RandInt old files to Old folder
+| 
+* commit 5bb28123cd624db72aeb4992f00d1033bece417b
+| Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| Date:   Wed Jul 26 18:26:36 2017 +0530
+| 
+|     RanInt
+|     
+|     Added The Move, Shoot, Build, Break text
+| 
+* commit 93b337acbfb654e4e8d6267eee9a3b861dc1f955
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Wed Jul 26 18:14:13 2017 +0530
+| 
+|     Fixed the file names with new Tiles
+|     
+|     ~ Current Player Tile changed
+|   
+*   commit e9b5e80fe81435fcfcee71eac15cacd00384db13
+|\  Merge: c53faf0 433834e
+| | Author: kentarospin98 <asd.dhruva@outlook.com>
+| | Date:   Wed Jul 26 18:10:17 2017 +0530
+| | 
+| |     Merge branch 'master' of https://github.com/kentarospin98/RandomSourceCode
+| | 
+| * commit 433834e20587944d76363c821fba81eb029d3882
+| | Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| | Date:   Wed Jul 26 17:59:18 2017 +0530
+| | 
+| |     Logo
+| | 
+| * commit a2da567f56b3797dad893de19559d13ea029dcaf
+| | Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| | Date:   Wed Jul 26 17:53:33 2017 +0530
+| | 
+| |     Added Transparency
+| | 
+| * commit 3a3be164e596692e6ccb8e91fd366a0f15cd64b7
+| | Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| | Date:   Wed Jul 26 17:50:53 2017 +0530
+| | 
+| |     RanIntBox
+| | 
+* | commit c53faf028f5b6dee942af7062d3e5f10f2e81539
+|/  Author: kentarospin98 <asd.dhruva@outlook.com>
+|   Date:   Wed Jul 26 18:05:07 2017 +0530
+|   
+|       Added Background and new tiles
+|       
+|       + Tiles with new transparency
+|       + Current Player Highlight
+|       + Background for game board
+|       ~ Made the default tile fill Transparent
+| 
+* commit efa0a8de1b079392d6678168e668046bab01dc84
+| Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| Date:   Wed Jul 26 17:36:14 2017 +0530
+| 
+|     With Transparency
+| 
+* commit 76a37086fff06a90ab7990c27f79223bdbadc288
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Wed Jul 26 17:31:39 2017 +0530
+| 
+|     Added Board Offsets
+|     
+|     + Offsets to the main Board
+|     ~ Changed How Tile Location are calculated so offsets can be added.
+| 
+* commit 2460a0b8375cdd19991a8e34b3405825a7f0d1fb
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Wed Jul 26 16:53:29 2017 +0530
+| 
+|     Added Walls And Player Symbols
+|     
+|     + Wall Sprites
+|     + Player Sprites
+|     + Wall Sprite Animation
+|     ~ Moved and renamed files for Ease of reading
+| 
+* commit 7821c79f0c5c44cc28c3cb0c6cc1583899154424
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Tue Jul 25 22:45:52 2017 +0530
+| 
+|     Added Sprites for Walls
+| 
+* commit 4c4a4f69f86006dba705ca7cacbcc742da3b58a9
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Tue Jul 25 22:10:29 2017 +0530
+| 
+|     Changed Foldernames and Where they are placed
+| 
+* commit bf7dc48d597d9dbee262788ca87ec3420dd1ecb6
+| Author: YoAbhay1 <30434988+YoAbhay1@users.noreply.github.com>
+| Date:   Tue Jul 25 19:22:24 2017 +0530
+| 
+|     Added The Shapes & Walls PNGs
+|     
+|     Have Fun
+| 
+* commit 4d8a7be050653a587e20c7de643cc35e30bc3e61
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Tue Jul 25 18:04:04 2017 +0530
+| 
+|     Basic Move and Randomiser
+|     
+|     + Randomiser
+|     + Text To Represent What Move is next and The Number Generated
+|     + Flickering on the random number
+|     + Ability To Move
+|     ~ The Layout
+| 
+* commit ff9715e0040088127913e0e1dd794b069fb4c55d
+| Author: kentarospin98 <asd.dhruva@outlook.com>
+| Date:   Tue Jul 25 16:34:48 2017 +0530
+| 
+|     First Prototype
+|     
+|     Basic Visuals and Structures. Not Completed
+| 
+* commit 42f4d618d95a34b1ac65c0c4bc8cb1b1c65b8fed
+  Author: kentarospin98 <asd.dhruva@outlook.com>
+  Date:   Tue Jul 25 16:32:44 2017 +0530
+  
+      Initial commit

@@ -1,7 +1,6 @@
 var walls;
 var players;
 var boardsize;
-// var gsz;
 var mode;
 var turn;
 var randint;
@@ -17,6 +16,8 @@ var availablespaces;
 var pushedplayer;
 var sounds;
 var pushimage;
+var brokenwallsimage;
+var brokenwall;
 
 function displaypnames(){
   fill(255);
@@ -311,6 +312,7 @@ function preload(){
   playersymbols = [];
   randintsprites = [];
   sounds = [];
+  brokenwallsimage = [];
   pushimage = loadImage("data/Push/PushTextBox.png");
   font = loadFont("data/Font/Brush.ttf");
   currentborder = loadImage("data/CurrentPlayer/HighlightPlayer.png");
@@ -325,6 +327,9 @@ function preload(){
   **/
   for (var i = 0; i < 6; i++) {
     sounds.push(loadSound("data/Sounds/Sound" + str(i) + ".flac"));
+  }
+  for (var i = 1; i < 5; i++) {
+    brokenwallsimage.push(loadImage("data/Walls/BrokenWall" + i + ".png"));
   }
   for(var i = 1; i < 6; i++){
     var image = loadImage("data/RanInt/RanInt" + str(i) + ".png");
@@ -386,6 +391,7 @@ function setup(){
   randint = new randomiser();
   mode = "SPIN";
   walls = WALLPRESET;
+  brokenwall = -1;
   boarddims = [(height - boardoffsets[0])/boardsize[0], (height - 2*boardoffsets[1])/boardsize[1]];
 }
 
@@ -410,6 +416,9 @@ function draw(){
     } else {
       image(wallsprites[n], walls[i][0]*boarddims[0] + boardoffsets[0], walls[i][1]*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
     }
+  }
+  if(brokenwall != -1 && brokenwall[1] + 10 >= frameCount){
+    image(brokenwallsimage[int(random(brokenwallsimage.length))], brokenwall[0][0]*boarddims[0] + boardoffsets[0], brokenwall[0][1]*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
   }
   for(var i = 0; i < players.length; i++){
     fill(0);
@@ -497,6 +506,7 @@ function mousePressed(){
         if(searchavaspaces(tile)){
           for (var i = 0; i < walls.length; i++) {
             if(walls[i][0] == tile[0] && walls[i][1] == tile[1]){
+              brokenwall = [walls[i], frameCount];
               walls.splice(i, 1);
             }
           }
@@ -514,6 +524,7 @@ function mousePressed(){
       if(searchavaspaces(tile)){
         for (var i = 0; i < walls.length; i++) {
           if(walls[i][0] == tile[0] && walls[i][1] == tile[1]){
+            brokenwall = [walls[i], frameCount];
             walls.splice(i, 1);
           }
         }
