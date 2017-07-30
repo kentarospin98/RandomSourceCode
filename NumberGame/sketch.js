@@ -208,7 +208,7 @@ function searchavaspaces(arr){
   return false;
 }
 
-function searchspaces(steps=2, player=players[turn]){
+function searchspaces(steps=2, player=players[turn], allowwalls=false){
   availablespaces = [];
   availablespaces.push([player.x, player.y]);
   var spaceswithrepeats = [];
@@ -219,25 +219,25 @@ function searchspaces(steps=2, player=players[turn]){
 
       // Search Left
       if(availablespaces[j][0] > 0){
-        if (!searchwalls([availablespaces[j][0] - 1, availablespaces[j][1]])) {
+        if (!searchwalls([availablespaces[j][0] - 1, availablespaces[j][1]]) || allowwalls) {
           newspaces.push([availablespaces[j][0] - 1, availablespaces[j][1]]);
         }
       }
       // Search Right
       if(availablespaces[j][0] < boardsize[0] - 1){
-        if (!searchwalls([availablespaces[j][0] + 1, availablespaces[j][1]])) {
+        if (!searchwalls([availablespaces[j][0] + 1, availablespaces[j][1]]) || allowwalls) {
           newspaces.push([availablespaces[j][0] + 1, availablespaces[j][1]]);
         }
       }
       // Search Top
       if(availablespaces[j][1] > 0){
-        if (!searchwalls([availablespaces[j][0], availablespaces[j][1] - 1])) {
+        if (!searchwalls([availablespaces[j][0], availablespaces[j][1] - 1]) || allowwalls) {
           newspaces.push([availablespaces[j][0], availablespaces[j][1] - 1]);
         }
       }
       // Search Bottom
       if(availablespaces[j][1] < boardsize[1] - 1){
-        if (!searchwalls([availablespaces[j][0], availablespaces[j][1] + 1])) {
+        if (!searchwalls([availablespaces[j][0], availablespaces[j][1] + 1]) || allowwalls) {
           newspaces.push([availablespaces[j][0], availablespaces[j][1] + 1]);
         }
       }
@@ -245,7 +245,7 @@ function searchspaces(steps=2, player=players[turn]){
       // Search Top Left
       if(availablespaces[j][0] > 0 && availablespaces[j][1] > 0){
         if(!(searchwalls([availablespaces[j][0] - 1, availablespaces[j][1]]) && searchwalls([availablespaces[j][0], availablespaces[j][1] - 1]))){
-          if (!searchwalls([availablespaces[j][0] - 1, availablespaces[j][1] - 1])) {
+          if (!searchwalls([availablespaces[j][0] - 1, availablespaces[j][1] - 1]) || allowwalls) {
             newspaces.push([availablespaces[j][0] - 1, availablespaces[j][1] - 1]);
           }
         }
@@ -254,7 +254,7 @@ function searchspaces(steps=2, player=players[turn]){
       // Search Top Right
       if(availablespaces[j][0] < boardsize[0] - 1 && availablespaces[j][1] > 0){
         if(!(searchwalls([availablespaces[j][0] + 1, availablespaces[j][1]]) && searchwalls([availablespaces[j][0], availablespaces[j][1] - 1]))){
-          if (!searchwalls([availablespaces[j][0] + 1, availablespaces[j][1] - 1])) {
+          if (!searchwalls([availablespaces[j][0] + 1, availablespaces[j][1] - 1]) || allowwalls) {
             newspaces.push([availablespaces[j][0] + 1, availablespaces[j][1] - 1]);
           }
         }
@@ -263,7 +263,7 @@ function searchspaces(steps=2, player=players[turn]){
       // Search Bottom Right
       if(availablespaces[j][0] < boardsize[0] - 1 && availablespaces[j][1] < boardsize[1] - 1){
         if(!(searchwalls([availablespaces[j][0] + 1, availablespaces[j][1]]) && searchwalls([availablespaces[j][0], availablespaces[j][1] + 1]))){
-          if (!searchwalls([availablespaces[j][0] + 1, availablespaces[j][1] + 1])) {
+          if (!searchwalls([availablespaces[j][0] + 1, availablespaces[j][1] + 1]) || allowwalls) {
             newspaces.push([availablespaces[j][0] + 1, availablespaces[j][1] + 1]);
           }
         }
@@ -272,7 +272,7 @@ function searchspaces(steps=2, player=players[turn]){
       // Search Bottom Left
       if(availablespaces[j][0] > 0 && availablespaces[j][1] < boardsize[1] - 1){
         if(!(searchwalls([availablespaces[j][0] - 1, availablespaces[j][1]]) && searchwalls([availablespaces[j][0], availablespaces[j][1] + 1]))){
-          if (!searchwalls([availablespaces[j][0] - 1, availablespaces[j][1] + 1])) {
+          if (!searchwalls([availablespaces[j][0] - 1, availablespaces[j][1] + 1]) || allowwalls) {
             newspaces.push([availablespaces[j][0] - 1, availablespaces[j][1] + 1]);
           }
         }
@@ -396,7 +396,7 @@ function draw(){
       image(currentborder, (players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
     }
     fill(0);
-    if(players[turn] != pushedplayer){
+    if(players[i] != pushedplayer){
       image(players[i].symbol, (players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
     }
   }
@@ -442,7 +442,7 @@ function mousePressed(){
       if(tile != -1 && abs(players[turn].x - tile[0]) <= 2 && abs(players[turn].y - tile[1]) <= 2){
         if(searchavaspaces(tile)){
           if (onplayer) {
-            searchspaces(1, pushedplayer);
+            searchspaces(1, pushedplayer, true);
             players[turn].x = tile[0];
             players[turn].y = tile[1];
             mode = "PUSH";
@@ -481,17 +481,31 @@ function mousePressed(){
   }else if(mode = "PUSH"){
     console.log("Pushed", pushedplayer.name);
     var tile = gettile();
-    // if(tile != -1+ boardoffsets[1] && abs(players[turn].x - tile[0]) <= 2 && abs(players[turn].y - tile[1]) <= 2){
-    //   if(searchavaspaces(tile)){
-    //     if (onplayer) {
-    //       searchavaspaces(1);
-    //       mode = "PUSH";
-    //     }else{
-    //       players[turn].x = tile[0];
-    //       players[turn].y = tile[1];
-    //       proceed();
-    //     }
-    //   }
-    // }
+    if(tile != -1){
+      var newpushedplayer;
+      for (var i = 0; i < players.length; i++) {
+        if(tile[0] == players[i].x && tile[1] == players[i].y && turn != i){
+          newpushedplayer = players[i];
+          onplayer = true;
+          break;
+        }
+      }
+      if(searchavaspaces(tile)){
+        if (onplayer) {
+          searchspaces(1, newpushedplayer, true);
+          pushedplayer.x = tile[0];
+          pushedplayer.y = tile[1];
+          // players.push(pushedplayer);
+          pushedplayer = newpushedplayer;
+          mode = "PUSH";
+        }else{
+          pushedplayer.x = tile[0];
+          pushedplayer.y = tile[1];
+          // players.push(pushedplayer);
+          pushedplayer = -1;
+          proceed();
+        }
+      }
+    }
   }
 }
