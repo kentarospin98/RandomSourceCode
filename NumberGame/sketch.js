@@ -14,6 +14,7 @@ var boardbackground;
 var randintsprites;
 var font;
 var availablespaces;
+var pushedplayer;
 
 function displaypnames(){
   fill(255);
@@ -207,11 +208,11 @@ function searchavaspaces(arr){
   return false;
 }
 
-function searchspaces(){
+function searchspaces(steps=2, player=players[turn]){
   availablespaces = [];
-  availablespaces.push([players[turn].x, players[turn].y]);
+  availablespaces.push([player.x, player.y]);
   var spaceswithrepeats = [];
-  for (var i = 0; i < 2; i++) {
+  for (var i = 0; i < steps; i++) {
     var newspaces = []
     // console.log("Loop" + i);
     for (var j = 0; j < availablespaces.length; j++) {
@@ -282,7 +283,7 @@ function searchspaces(){
     availablespaces = newspaces;
   }
   availablespaces = [];
-  availablespaces.push([players[turn].x, players[turn].y]);
+  availablespaces.push([player.x, player.y]);
   for (var i = 0; i < spaceswithrepeats.length; i++) {
     for (var j = 0; j < spaceswithrepeats[i].length; j++) {
       if (!searchavaspaces(spaceswithrepeats[i][j])) {
@@ -395,10 +396,12 @@ function draw(){
       image(currentborder, (players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
     }
     fill(0);
-    image(players[i].symbol, (players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
+    if(players[turn] != pushedplayer){
+      image(players[i].symbol, (players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
+    }
   }
   // console.log(availablespaces);
-  if(mode == "MOVE"){
+  if(mode == "MOVE" || mode == "PUSH"){
     for (var i = 0; i < availablespaces.length; i++) {
       fill(0, 64*(sin(frameCount/15)+1));
       // console.log(availablespaces[i]);
@@ -428,18 +431,26 @@ function mousePressed(){
   if(mode == "MOVE"){
     if(randint.digit == 0){
       var tile = gettile();
-      console.log(tile);
+      var onplayer = false;
       for (var i = 0; i < players.length; i++) {
         if(tile[0] == players[i].x && tile[1] == players[i].y && turn != i){
-          tile = -1;
+          pushedplayer = players[i];
+          onplayer = true;
           break;
         }
       }
-      if(tile != -1+ boardoffsets[1] && abs(players[turn].x - tile[0]) <= 2 && abs(players[turn].y - tile[1]) <= 2){
+      if(tile != -1 && abs(players[turn].x - tile[0]) <= 2 && abs(players[turn].y - tile[1]) <= 2){
         if(searchavaspaces(tile)){
-          players[turn].x = tile[0];
-          players[turn].y = tile[1];
-          proceed();
+          if (onplayer) {
+            searchspaces(1, pushedplayer);
+            players[turn].x = tile[0];
+            players[turn].y = tile[1];
+            mode = "PUSH";
+          }else{
+            players[turn].x = tile[0];
+            players[turn].y = tile[1];
+            proceed();
+          }
         }
       }
     }
@@ -467,5 +478,20 @@ function mousePressed(){
         proceed();
       }
     }
+  }else if(mode = "PUSH"){
+    console.log("Pushed", pushedplayer.name);
+    var tile = gettile();
+    // if(tile != -1+ boardoffsets[1] && abs(players[turn].x - tile[0]) <= 2 && abs(players[turn].y - tile[1]) <= 2){
+    //   if(searchavaspaces(tile)){
+    //     if (onplayer) {
+    //       searchavaspaces(1);
+    //       mode = "PUSH";
+    //     }else{
+    //       players[turn].x = tile[0];
+    //       players[turn].y = tile[1];
+    //       proceed();
+    //     }
+    //   }
+    // }
   }
 }
