@@ -34,7 +34,10 @@ This project is basically a simple board game which we created as a pastime in o
  	- ~~Jump~~
 
  5. Last man standing will be winner of the game!
-    
+
+### Minimum requirements:
+ When you start game for the first time, it requires 20MB amount of data. This will be downloaded automatically when you start the game.
+
 ### Why we made it:
 
   We have enjoyed random integer game during free period so that we want to share our idea through this project and makes others also can enjoy this game.
