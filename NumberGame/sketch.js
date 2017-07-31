@@ -129,7 +129,6 @@ function randomiser(){
 function searchshoot(){
   availablespaces = [];
   tile = [players[turn].x, players[turn].y]
-  sounds[3].play();
   while (true) {
     console.log(tile);
     if (tile[0] < boardsize[0] - 1) {
@@ -266,7 +265,7 @@ function searchshoot(){
 
   tile = [players[turn].x, players[turn].y]
   while (true) {
-        console.log(tile);
+    console.log(tile);
     if (tile[1] < boardsize[1] - 1 && tile[0] > 0) {
       if(!searchwalls([tile[0] - 1, tile[1] + 1])){
         if (!(searchwalls([tile[0] - 1, tile[1]]) && searchwalls([tile[0], tile[1] + 1]))) {
@@ -678,6 +677,18 @@ function mousePressed(){
               players[turn].y = tile[1];
               sounds[4].play();
               proceed();
+            }
+          }
+        }
+      }
+      if(randint.digit == 1){
+        if (searchavaspaces(tile)) {
+          for (var i = 0; i < players.length; i++) {
+            if (players[i].x == tile[0] && players[i].y == tile[1]) {
+              hit(players[i]);
+              sounds[5].play();
+              proceed();
+              break;
             }
           }
         }
