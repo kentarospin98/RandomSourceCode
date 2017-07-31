@@ -692,6 +692,9 @@ function mousePressed(){
             }
           }
         }
+        if (availablespaces.length == 0 && tile[0] == players[turn].x && tile[1] == players[turn].y) {
+          proceed();
+        }
       }
       if(randint.digit == 2){
         if(searchavaspaces(tile)){
