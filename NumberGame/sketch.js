@@ -129,7 +129,9 @@ function randomiser(){
 function searchshoot(){
   availablespaces = [];
   tile = [players[turn].x, players[turn].y]
+  sounds[3].play();
   while (true) {
+    console.log(tile);
     if (tile[0] < boardsize[0] - 1) {
       if(!searchwalls([tile[0] + 1, tile[1]])){
         if (searchplayers([tile[0] + 1, tile[1]])) {
@@ -150,6 +152,7 @@ function searchshoot(){
 
   tile = [players[turn].x, players[turn].y]
   while (true) {
+    console.log(tile);
     if (tile[0] > 0) {
       if(!searchwalls([tile[0] - 1, tile[1]])){
         if (searchplayers([tile[0] - 1, tile[1]])) {
@@ -170,6 +173,7 @@ function searchshoot(){
 
   tile = [players[turn].x, players[turn].y]
   while (true) {
+    console.log(tile);
     if (tile[1] < boardsize[1] - 1) {
       if(!searchwalls([tile[0], tile[1] + 1])){
         if (searchplayers([tile[0], tile[1] + 1])) {
@@ -190,6 +194,7 @@ function searchshoot(){
 
   tile = [players[turn].x, players[turn].y]
   while (true) {
+    console.log(tile);
     if (tile[1] > 0) {
       if(!searchwalls([tile[0], tile[1] - 1])){
         if (searchplayers([tile[0], tile[1] - 1])) {
@@ -199,6 +204,105 @@ function searchshoot(){
           tile = [tile[0], tile[1] - 1];
           console.log(tile);
           continue;
+        }
+      }else {
+        break;
+      }
+    }else {
+      break;
+    }
+  }
+
+  tile = [players[turn].x, players[turn].y]
+  while (true) {
+        console.log(tile);
+    if (tile[1] > 0 && tile[0] > 0) {
+      if(!searchwalls([tile[0] - 1, tile[1] - 1])){
+        if (!(searchwalls([tile[0], tile[1] - 1]) && searchwalls([tile[0] - 1, tile[1]]))) {
+          if (searchplayers([tile[0] - 1 , tile[1] - 1])) {
+            availablespaces.push([tile[0] - 1, tile[1] - 1])
+            break;
+          }else {
+            tile = [tile[0] - 1, tile[1] - 1];
+            console.log(tile);
+            continue;
+          }
+        }else {
+          break;
+        }
+      }else {
+        break
+      }
+    }else {
+      break;
+    }
+  }
+
+  tile = [players[turn].x, players[turn].y]
+  while (true) {
+    console.log(tile);
+    if (tile[1] > 0 && tile[0] < boardsize[0] - 1) {
+      if(!searchwalls([tile[0] + 1, tile[1] - 1])){
+        if (!(searchwalls([tile[0], tile[1] - 1]) && searchwalls([tile[0], tile[1] + 1]))) {
+          if (searchplayers([tile[0] + 1 , tile[1] - 1])) {
+            console.log(tile, "In");
+            availablespaces.push([tile[0] + 1, tile[1] - 1])
+            break;
+          }else {
+            tile = [tile[0] + 1, tile[1] - 1];
+            console.log(tile, "Out");
+            continue;
+          }
+        }else {
+          break;
+        }
+      }else {
+        break;
+      }
+    }else {
+      break;
+    }
+  }
+
+  tile = [players[turn].x, players[turn].y]
+  while (true) {
+        console.log(tile);
+    if (tile[1] < boardsize[1] - 1 && tile[0] > 0) {
+      if(!searchwalls([tile[0] - 1, tile[1] + 1])){
+        if (!(searchwalls([tile[0] - 1, tile[1]]) && searchwalls([tile[0], tile[1] + 1]))) {
+          if (searchplayers([tile[0] - 1 , tile[1] + 1])) {
+            availablespaces.push([tile[0] - 1, tile[1] + 1])
+            break;
+          }else {
+            tile = [tile[0] - 1, tile[1] + 1];
+            console.log(tile);
+            continue;
+          }
+        }else {
+          break;
+        }
+      }else {
+        break;
+      }
+    }else {
+      break;
+    }
+  }
+
+  tile = [players[turn].x, players[turn].y]
+  while (true) {
+    if (tile[1] < boardsize[1] - 1 && tile[0] < boardsize[0] - 1) {
+      if(!searchwalls([tile[0] + 1, tile[1] + 1])){
+        if (!(searchwalls([tile[0] + 1, tile[1]]) && searchwalls([tile[0], tile[1] + 1]))) {
+          if (searchplayers([tile[0] + 1 , tile[1] + 1])) {
+            availablespaces.push([tile[0] + 1, tile[1] + 1])
+            break;
+          }else {
+            tile = [tile[0] + 1, tile[1] + 1];
+            continue;
+          }
+        }else {
+          break;
         }
       }else {
         break;
