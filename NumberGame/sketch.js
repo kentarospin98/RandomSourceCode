@@ -80,11 +80,11 @@ function randomiser(){
 
   this.random = function(){
     this.digit = int(random(5));
-            console.log(this.digit);
+            // console.log(this.digit);
     // this.digit = 0;
     this.spincount--;
     if(this.spincount <= 0){
-              console.log(this.digit, "Done");
+              // console.log(this.digit, "Done");
       if(this.digit == 0){
         mode = "MOVE";
         searchspaces();
@@ -135,7 +135,7 @@ function searchshoot(){
   availablespaces = [];
   tile = [players[turn].x, players[turn].y]
   while (true) {
-    console.log(tile);
+    // console.log(tile);
     if (tile[0] < boardsize[0] - 1) {
       if(!searchwalls([tile[0] + 1, tile[1]])){
         if (searchplayers([tile[0] + 1, tile[1]])) {
@@ -143,7 +143,7 @@ function searchshoot(){
           break;
         }else {
           tile = [tile[0] + 1, tile[1]];
-          console.log(tile);
+          // console.log(tile);
           continue;
         }
       }else {
@@ -156,7 +156,7 @@ function searchshoot(){
 
   tile = [players[turn].x, players[turn].y]
   while (true) {
-    console.log(tile);
+    // console.log(tile);
     if (tile[0] > 0) {
       if(!searchwalls([tile[0] - 1, tile[1]])){
         if (searchplayers([tile[0] - 1, tile[1]])) {
@@ -164,7 +164,7 @@ function searchshoot(){
           break;
         }else {
           tile = [tile[0] - 1, tile[1]];
-          console.log(tile);
+          // console.log(tile);
           continue;
         }
       }else {
@@ -177,7 +177,7 @@ function searchshoot(){
 
   tile = [players[turn].x, players[turn].y]
   while (true) {
-    console.log(tile);
+    // console.log(tile);
     if (tile[1] < boardsize[1] - 1) {
       if(!searchwalls([tile[0], tile[1] + 1])){
         if (searchplayers([tile[0], tile[1] + 1])) {
@@ -185,7 +185,7 @@ function searchshoot(){
           break;
         }else {
           tile = [tile[0], tile[1] + 1];
-          console.log(tile);
+          // console.log(tile);
           continue;
         }
       }else {
@@ -198,7 +198,7 @@ function searchshoot(){
 
   tile = [players[turn].x, players[turn].y]
   while (true) {
-    console.log(tile);
+    // console.log(tile);
     if (tile[1] > 0) {
       if(!searchwalls([tile[0], tile[1] - 1])){
         if (searchplayers([tile[0], tile[1] - 1])) {
@@ -206,7 +206,7 @@ function searchshoot(){
           break;
         }else {
           tile = [tile[0], tile[1] - 1];
-          console.log(tile);
+          // (tile);
           continue;
         }
       }else {
@@ -219,7 +219,7 @@ function searchshoot(){
 
   tile = [players[turn].x, players[turn].y]
   while (true) {
-        console.log(tile);
+        (tile);
     if (tile[1] > 0 && tile[0] > 0) {
       if(!searchwalls([tile[0] - 1, tile[1] - 1])){
         if (!(searchwalls([tile[0], tile[1] - 1]) && searchwalls([tile[0] - 1, tile[1]]))) {
@@ -228,7 +228,7 @@ function searchshoot(){
             break;
           }else {
             tile = [tile[0] - 1, tile[1] - 1];
-            console.log(tile);
+            // console.log(tile);
             continue;
           }
         }else {
@@ -244,18 +244,18 @@ function searchshoot(){
 
   tile = [players[turn].x, players[turn].y]
   while (true) {
-    console.log(tile);
+    // console.log(tile);
     if (tile[1] > 0 && tile[0] < boardsize[0] - 1) {
       if(!searchwalls([tile[0] + 1, tile[1] - 1])){
-                console.log("Shoot test", !(searchwalls([tile[0] - 1, tile[1]]) && searchwalls([tile[0], tile[1] + 1])));
+                // console.log("Shoot test", !(searchwalls([tile[0] - 1, tile[1]]) && searchwalls([tile[0], tile[1] + 1])));
         if (!(searchwalls([tile[0], tile[1] - 1]) && searchwalls([tile[0] + 1, tile[1]]))) {
           if (searchplayers([tile[0] + 1 , tile[1] - 1])) {
-            console.log(tile, "In");
+            // console.log(tile, "In");
             availablespaces.push([tile[0] + 1, tile[1] - 1])
             break;
           }else {
             tile = [tile[0] + 1, tile[1] - 1];
-            console.log(tile, "Out");
+            // console.log(tile, "Out");
             continue;
           }
         }else {
@@ -271,7 +271,7 @@ function searchshoot(){
 
   tile = [players[turn].x, players[turn].y]
   while (true) {
-    console.log(tile);
+    // console.log(tile);
     if (tile[1] < boardsize[1] - 1 && tile[0] > 0) {
       if(!searchwalls([tile[0] - 1, tile[1] + 1])){
         if (!(searchwalls([tile[0] - 1, tile[1]]) && searchwalls([tile[0], tile[1] + 1]))) {
@@ -280,7 +280,7 @@ function searchshoot(){
             break;
           }else {
             tile = [tile[0] - 1, tile[1] + 1];
-            console.log(tile);
+            // console.log(tile);
             continue;
           }
         }else {
