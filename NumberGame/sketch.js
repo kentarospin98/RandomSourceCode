@@ -242,7 +242,8 @@ function searchshoot(){
     console.log(tile);
     if (tile[1] > 0 && tile[0] < boardsize[0] - 1) {
       if(!searchwalls([tile[0] + 1, tile[1] - 1])){
-        if (!(searchwalls([tile[0], tile[1] - 1]) && searchwalls([tile[0], tile[1] + 1]))) {
+                console.log("Shoot test", !(searchwalls([tile[0] - 1, tile[1]]) && searchwalls([tile[0], tile[1] + 1])));
+        if (!(searchwalls([tile[0], tile[1] - 1]) && searchwalls([tile[0] + 1, tile[1]]))) {
           if (searchplayers([tile[0] + 1 , tile[1] - 1])) {
             console.log(tile, "In");
             availablespaces.push([tile[0] + 1, tile[1] - 1])
