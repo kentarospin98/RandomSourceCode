@@ -129,7 +129,7 @@ function randomiser(){
 function searchshoot(){
   availablespaces = [];
   tile = [players[turn].x, players[turn].y]
-  sounds[3].play();
+  sounds[5].play();
   while (true) {
     console.log(tile);
     if (tile[0] < boardsize[0] - 1) {
