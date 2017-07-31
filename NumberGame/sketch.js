@@ -50,7 +50,7 @@ function proceed(){
   mode = "SPIN"
 }
 
-function hit(player){
+function hit(player, sendback=true){
   player.life--;
   if(player.life == 0){
     for (var i = 0; i < players.length; i++) {
@@ -61,6 +61,8 @@ function hit(player){
       }
     }
   }
+  player.x = player.spawn[0];
+  player.y = player.spawn[1];
 }
 
 function player(name, symbol, x, y){
@@ -69,6 +71,7 @@ function player(name, symbol, x, y){
   this.life = 3;
   this.x = x;
   this.y = y;
+  this.spawn = [x, y]
 };
 
 function randomiser(){
@@ -77,14 +80,16 @@ function randomiser(){
 
   this.random = function(){
     this.digit = int(random(5));
+            console.log(this.digit);
     // this.digit = 0;
     this.spincount--;
     if(this.spincount <= 0){
+              console.log(this.digit, "Done");
       if(this.digit == 0){
         mode = "MOVE";
         searchspaces();
         this.spincount = 6;
-      }if (this.digit == 1) {
+      }else if (this.digit == 1) {
         mode = "MOVE";
         searchshoot();
         this.spincount = 6;
