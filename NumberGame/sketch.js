@@ -24,8 +24,12 @@ function displaypnames(){
   fill(255);
   rect(height + boardoffsets[0], 3*(height-2*boardoffsets[1])/4 + 2*boardoffsets[1], 3*(height-2*boardoffsets[1])/4, height - 3*(height-2*boardoffsets[1])/4 - 3*boardoffsets[1]);
   for (var i = 0; i < players.length; i++) {
-    var name = players[i].name;
+    var name = players[i].name.slice(0, 6) + "  ";
     var symbol = players[i].symbol;
+
+    for (var j = 0; j < players[i].life; j++) {
+      name = name + "!"
+    }
 
     var texthig = 5*(height - 3*(height-2*boardoffsets[1])/4 - 3*boardoffsets[1])/16;
 
@@ -39,7 +43,7 @@ function displaypnames(){
           3*(height-2*boardoffsets[1])/4 + (int(i/2) + 1)*(height - 3*(height-2*boardoffsets[1])/4 - 3*boardoffsets[1])/2,
           texthig,
           texthig);
-    text(players[i].name.slice(0, 8),
+    text(name,
          height + boardoffsets[0] + (i%2)*3*(height-2*boardoffsets[1])/8 + texthig,
          3*(height-2*boardoffsets[1])/4 + (int(i/2) + 1)*(height - 3*(height-2*boardoffsets[1])/4 - 3*boardoffsets[1])/2 - texthig/10);
     // text(players[i].name.slice(0, 8), texthig + height + boardoffsets[0] + (i%2)*3*(height-2*boardoffsets[1])/8, 3*(width - height)/4 + (int(i/2) + 1)*(height - 3*(height-2*boardoffsets[1])/4 - 3*boardoffsets[1])/2);
