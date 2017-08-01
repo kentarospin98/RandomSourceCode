@@ -7,23 +7,23 @@ This project is basically a simple board game which we created as a pastime in o
   It is a simple board game you can play in online using random integer function. You should know some rules before play.
 
  1. You have to choose the Board Size.
-    
-    |Players|Grid Size|Board Size|
+
+    |Players|Grid Size|
     |---|---|
-    |1|5x5|Tiny|
-    |2|7x7|Medium|
-    |3|9x9|Huge|
-    |4|11x11|Insane|
-   
+    |1|5x5 Tiny|
+    |2|7x7 Medium|
+    |3|9x9 Large|
+    |4|11x11 Insane|
+
  2. You need to input Player names and a Symbol will automatically be assigned to Players. (Min 2 Players, Max 4 Players)
- 
+
  3. After setting up everything, a random number will be chosen. Each random number represents an action;
   	1. Move
   	2. Shoot
   	3. Build
   	4. Break
   	5. Step
- 
+
  4. Each function has different ability:
 
  	- **Move** : You are allowed two steps in any direction. But you can't move across walls (Or corners). If you move on another player, you can push him to one step to any direction, even into walls! A Player cannot Move, Shoot, Build or Step when in a wall.
@@ -51,4 +51,3 @@ ___
 |Abhay Sriwastawa|Lead Graphics Designer, Junior Developer, Junior Visionary Officer|
 |Allen Jomy|Junior Graphics Designer, Sound Creator, Junior Visionary Officer|
 |Junehan Lee|Technical Writer, Junior Visionary Officer|
-
