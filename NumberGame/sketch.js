@@ -22,6 +22,8 @@ var pushstarter;
 var curreentscreen;
 var phase;
 var endgamecurtaintime;
+var endscreenimages;
+var dead;
 
 function displaypnames(){
   fill(255);
@@ -63,6 +65,7 @@ function hit(player, sendback=true){
   if(player.life == 0){
     for (var i = 0; i < players.length; i++) {
       if (players[i].name == player.name) {
+        dead.push(player);
         players.splice(i, 1);
         sounds[2].play();
         break;
@@ -522,6 +525,7 @@ function preload(){
   randintsprites = [];
   sounds = [];
   brokenwallsimage = [];
+  endscreenimages = [];
   pushimage = loadImage("data/Push/PushTextBox.png");
   font = loadFont("data/Font/Brush.ttf");
   currentborder = loadImage("data/CurrentPlayer/HighlightPlayer.png");
@@ -562,7 +566,9 @@ function preload(){
     //   wallsprites[i] = -1;
     // }
   }
-
+  for (var i = 0; i < 4; i++) {
+    endscreenimages.push(loadImage("data/Endscreen/Place" + str(i) + ".png"));
+  }
 }
 
 function setup(){
@@ -586,6 +592,7 @@ function setup(){
   const WALLPRESET = [[int(wid/2), 0], [int(wid/2), hig - 1], [0, int(hig/2)], [wid - 1, int(hig/2)], [int(wid/2), int(hig/2)]];
 
   players = [];
+  dead = [];
 
   for(var i = 0; i < 4; i++){
     do{
@@ -676,10 +683,30 @@ function draw(){
   else if (curreentscreen == "ENDGAME") {
     if (phase == 0) {
       strokeWeight(0);
-      fill(color("#D7D7D7"));
+      fill(color("#DDDDDD"));
       rect(0, 0, width/2 * endgamecurtaintime/60, height);
       rect(width - width/2 * endgamecurtaintime/60, 0, width/2 * endgamecurtaintime/60, height);
       endgamecurtaintime++;
+      if (endgamecurtaintime >= 60) {
+        phase = 1;
+      }
+    }else if (phase == 1) {
+      background("#DDDDDD");
+      imageMode(CENTER);
+      // for (var i = 0; i < endscreenimages.length; i++) {
+      //   image(endscreenimages[i], width/2, height/2, height/2, height/2);
+      // }
+      image(endscreenimages[0], width/2, height/2, height/2, height/2);
+      image(endscreenimages[1], width/2, height/2, height/2, height/2);
+      image(players[0].symbol, width/2, height*7/20, height/18, height/18)
+      if (dead.length >= 1) {
+        image(endscreenimages[2], width/2, height/2, height/2, height/2);
+        image(dead[dead.length - 1].symbol, width/2 - height*7/64, height*17/40, height/18, height/18)
+        if (dead.length >= 2) {
+          image(endscreenimages[3], width/2, height/2, height/2, height/2);
+          image(dead[dead.length - 2].symbol, width/2 + height*7/64, height*17/40, height/18, height/18)
+        }
+      }
     }
   }
 }
