@@ -537,8 +537,9 @@ function preload(){
   3- Jump
   4- Move
   5- Shoot
+  6- Celebration
   **/
-  for (var i = 0; i < 6; i++) {
+  for (var i = 0; i < 7; i++) {
     sounds.push(loadSound("data/Sounds/Sound" + str(i) + ".flac"));
   }
   for (var i = 1; i < 5; i++) {
@@ -688,6 +689,7 @@ function draw(){
       rect(width - width/2 * endgamecurtaintime/30, 0, width/2 * endgamecurtaintime/30, height);
       endgamecurtaintime++;
       if (endgamecurtaintime >= 30) {
+        sounds[6].play();
         phase = 1;
       }
     }else if (phase == 1) {
