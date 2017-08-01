@@ -4,18 +4,18 @@ ___
 This project is basically a simple board game which we created as a pastime in our free periods.
 
 ### How to use it
-  It is a simple board game you can play in online using random integer function. You should know some rules before play
+  It is a simple board game you can play in online using random integer function. You should know some rules before play.
 
- 1. You have to choose length of one side of the board(the number of small box which players will place)
-  	###### **Recommanded board size for games**
+ 1. You have to choose the Board Size.
     
-    |Players|Board Size|
+    |Players|Grid Size|Board Size|
     |---|---|
-    |2|5x5|
-    |3|7x7|
-    |4|9x9|
+    |1|5x5|Tiny|
+    |2|7x7|Medium|
+    |3|9x9|Huge|
+    |4|11x11|Insane|
    
- 2. You can input name of players and choose symbols which you will play as (Min 2 people Max 4 people and 8 symbols are available)
+ 2. You need to input Player names and a Symbol will automatically be assigned to Players. (Min 2 Players, Max 4 Players)
  
  3. After setting up everything, a random number will be chosen. Each random number represents an action;
   	1. Move
@@ -26,17 +26,17 @@ This project is basically a simple board game which we created as a pastime in o
  
  4. Each function has different ability:
 
- 	- **Move** : You are allowed two steps in any direction. But you can't move across walls (Or corners). If you move on another              player, you can push him to one step to any direction, even walls!
- 	- **Shoot**: You can shoot others once they are in line of sight, or in knight's path. But you can't shoot them when they are behind walls. When shot, a life is lost and you returned to spawn. When all the lifes have been deducted, you are out of the game.
- 	- **Build**: You can build a wall in every eight direction one step away from your place, but not over other player or in locations which are behind walls.
- 	- **Break**: You can break a wall in every eight direction one step away from your place, but not the ones which are hidden behind walls.
+ 	- **Move** : You are allowed two steps in any direction. But you can't move across walls (Or corners). If you move on another player, you can push him to one step to any direction, even into walls! A Player cannot Move, Shoot, Build or Step when in a wall.
+ 	- **Shoot**: You can shoot others once they are in line of sight. But you can't shoot them when they are behind walls. When shot, a life is lost and you returned to spawn position. When all 3 lives have been deducted, you are out of the game.
+ 	- **Build**: You can build a wall in every direction one step away from your place, but not over other players or in locations which are behind walls.
+ 	- **Break**: You can break a wall in every direction one step away from your place, but not the ones which are hidden behind walls.
  	- **Step** : Exactly like move, but you are allowed only one step.
  	- ~~Jump~~
 
  5. Last man standing will be winner of the game!
 
 ### Minimum requirements:
- When you start game for the first time, it requires 20MB amount of data. This will be downloaded automatically when you start the game.
+ When you start game for the first time, it requires some data. This will be downloaded automatically when you start the game.
 
 ### Why we made it:
 
