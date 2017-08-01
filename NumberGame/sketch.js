@@ -695,8 +695,10 @@ function mousePressed(){
         if (searchavaspaces(tile)) {
           for (var i = 0; i < players.length; i++) {
             if (players[i].x == tile[0] && players[i].y == tile[1]) {
+              if (players[i].life > 1) {
+                sounds[5].play();
+              }
               hit(players[i]);
-              sounds[5].play();
               proceed();
               break;
             }
