@@ -684,10 +684,10 @@ function draw(){
     if (phase == 0) {
       strokeWeight(0);
       fill(color("#DDDDDD"));
-      rect(0, 0, width/2 * endgamecurtaintime/60, height);
-      rect(width - width/2 * endgamecurtaintime/60, 0, width/2 * endgamecurtaintime/60, height);
+      rect(0, 0, width/2 * endgamecurtaintime/30, height);
+      rect(width - width/2 * endgamecurtaintime/30, 0, width/2 * endgamecurtaintime/30, height);
       endgamecurtaintime++;
-      if (endgamecurtaintime >= 60) {
+      if (endgamecurtaintime >= 30) {
         phase = 1;
       }
     }else if (phase == 1) {
@@ -707,6 +707,11 @@ function draw(){
           image(dead[dead.length - 2].symbol, width/2 + height*7/64, height*17/40, height/18, height/18)
         }
       }
+      fill(0);
+      textSize(height/6);
+      textAlign(CENTER);
+      text(players[0].name, width/2, 0);
+      text("is the Winner!", width/2, height/7);
     }
   }
 }
