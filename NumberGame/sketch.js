@@ -19,6 +19,9 @@ var pushimage;
 var brokenwallsimage;
 var brokenwall;
 var pushstarter;
+var curreentscreen;
+var phase;
+var endgamecurtaintime;
 
 function displaypnames(){
   fill(255);
@@ -68,6 +71,9 @@ function hit(player, sendback=true){
   }
   player.x = player.spawn[0];
   player.y = player.spawn[1];
+  if (players.length <= 1) {
+    curreentscreen = "ENDGAME";
+  }
 }
 
 function player(name, symbol, x, y){
@@ -599,6 +605,9 @@ function setup(){
   walls = WALLPRESET;
   brokenwall = -1;
   boarddims = [(height - boardoffsets[0])/boardsize[0], (height - 2*boardoffsets[1])/boardsize[1]];
+  curreentscreen = "GAME";
+  phase = 0;
+  endgamecurtaintime = 0;
 }
 
 function searchname(inp){
@@ -611,57 +620,68 @@ function searchname(inp){
 }
 
 function draw(){
-  background("#373737");
+  if (curreentscreen == "GAME") {
+    background("#373737");
 
-  fill(0, 255);
-  image(boardbackground, boardoffsets[0], boardoffsets[1], boarddims[0]*boardsize[0], boarddims[1]*boardsize[1]);
+    fill(0, 255);
+    image(boardbackground, boardoffsets[0], boardoffsets[1], boarddims[0]*boardsize[0], boarddims[1]*boardsize[1]);
 
-  fill(0, 0);
-  strokeWeight(4);
-  for(var i = 0; i < boardsize[0]; i++){
-    for(var j = 0; j < boardsize[1]; j++){
-      rect(i*boarddims[0] + boardoffsets[0], j*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
+    fill(0, 0);
+    strokeWeight(4);
+    for(var i = 0; i < boardsize[0]; i++){
+      for(var j = 0; j < boardsize[1]; j++){
+        rect(i*boarddims[0] + boardoffsets[0], j*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
+      }
+    }
+    fill(128);
+    for(var i = 0; i < walls.length; i ++){
+      var n = int((frameCount/5)%wallsprites.length);
+      if(wallsprites[n] == -1){
+        rect(walls[i][0]*boarddims[0] + boardoffsets[0], walls[i][1]*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
+      } else {
+        image(wallsprites[n], walls[i][0]*boarddims[0] + boardoffsets[0], walls[i][1]*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
+      }
+    }
+    if(brokenwall != -1 && brokenwall[1] + 10 >= frameCount){
+      image(brokenwallsimage[int(random(brokenwallsimage.length))], brokenwall[0][0]*boarddims[0] + boardoffsets[0], brokenwall[0][1]*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
+    }
+    for(var i = 0; i < players.length; i++){
+      fill(0);
+      textAlign(LEFT, TOP);
+      textSize(boarddims[1]);
+      if(turn == i){
+        fill(0, 80);
+        rect((players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
+        image(currentborder, (players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
+      }
+      fill(0);
+      if(players[i] != pushedplayer){
+        image(players[i].symbol, (players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
+      }
+    }
+    // console.log(availablespaces);
+    if(mode == "MOVE" || mode == "PUSH"){
+      for (var i = 0; i < availablespaces.length; i++) {
+        fill(0, 64*(sin(frameCount/15)+1));
+        // console.log(availablespaces[i]);
+        rect((availablespaces[i][0])*boarddims[0] + boardoffsets[0], (availablespaces[i][1])*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
+      }
+    }
+    if(mode == "SPIN" && frameCount%5 == 0){
+      randint.random();
+    }
+    displaypnames();
+    randint.show();
+  }
+  else if (curreentscreen == "ENDGAME") {
+    if (phase == 0) {
+      strokeWeight(0);
+      fill(color("#D7D7D7"));
+      rect(0, 0, width/2 * endgamecurtaintime/60, height);
+      rect(width - width/2 * endgamecurtaintime/60, 0, width/2 * endgamecurtaintime/60, height);
+      endgamecurtaintime++;
     }
   }
-  fill(128);
-  for(var i = 0; i < walls.length; i ++){
-    var n = int((frameCount/5)%wallsprites.length);
-    if(wallsprites[n] == -1){
-      rect(walls[i][0]*boarddims[0] + boardoffsets[0], walls[i][1]*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
-    } else {
-      image(wallsprites[n], walls[i][0]*boarddims[0] + boardoffsets[0], walls[i][1]*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
-    }
-  }
-  if(brokenwall != -1 && brokenwall[1] + 10 >= frameCount){
-    image(brokenwallsimage[int(random(brokenwallsimage.length))], brokenwall[0][0]*boarddims[0] + boardoffsets[0], brokenwall[0][1]*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
-  }
-  for(var i = 0; i < players.length; i++){
-    fill(0);
-    textAlign(LEFT, TOP);
-    textSize(boarddims[1]);
-    if(turn == i){
-      fill(0, 80);
-      rect((players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
-      image(currentborder, (players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
-    }
-    fill(0);
-    if(players[i] != pushedplayer){
-      image(players[i].symbol, (players[i].x)*boarddims[0] + boardoffsets[0], (players[i].y)*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
-    }
-  }
-  // console.log(availablespaces);
-  if(mode == "MOVE" || mode == "PUSH"){
-    for (var i = 0; i < availablespaces.length; i++) {
-      fill(0, 64*(sin(frameCount/15)+1));
-      // console.log(availablespaces[i]);
-      rect((availablespaces[i][0])*boarddims[0] + boardoffsets[0], (availablespaces[i][1])*boarddims[1] + boardoffsets[1], boarddims[0], boarddims[1]);
-    }
-  }
-  if(mode == "SPIN" && frameCount%5 == 0){
-    randint.random();
-  }
-  displaypnames();
-  randint.show();
 }
 
 function gettile(){
@@ -678,63 +698,82 @@ function gettile(){
 
 function mousePressed(){
   var tile = gettile();
-  if(mode == "MOVE"){
-    if(!searchwalls([players[turn].x, players[turn].y])){
-      if(randint.digit == 0 || randint.digit == 4){
-        var onplayer = false;
-        for (var i = 0; i < players.length; i++) {
-          if(tile[0] == players[i].x && tile[1] == players[i].y && turn != i && !searchwalls([players[i].x, players[i].y])){
-            pushedplayer = pushstarter = players[i];
-            onplayer = true;
-            break;
-          }
-        }
-        if(tile != -1){
-          if(searchavaspaces(tile)){
-            if (onplayer) {
-              searchspaces(1, pushedplayer, true);
-              players[turn].x = tile[0];
-              players[turn].y = tile[1];
-              mode = "PUSH";
-              sounds[4].play();
-            }else{
-              players[turn].x = tile[0];
-              players[turn].y = tile[1];
-              sounds[4].play();
-              proceed();
-            }
-          }
-        }
-      }
-      if(randint.digit == 1){
-        if (searchavaspaces(tile)) {
+  if (curreentscreen == "GAME") {
+    if(mode == "MOVE"){
+      if(!searchwalls([players[turn].x, players[turn].y])){
+        if(randint.digit == 0 || randint.digit == 4){
+          var onplayer = false;
           for (var i = 0; i < players.length; i++) {
-            if (players[i].x == tile[0] && players[i].y == tile[1]) {
-              if (players[i].life > 1) {
-                sounds[5].play();
-              }
-              hit(players[i]);
-              proceed();
+            if(tile[0] == players[i].x && tile[1] == players[i].y && turn != i && !searchwalls([players[i].x, players[i].y])){
+              pushedplayer = pushstarter = players[i];
+              onplayer = true;
               break;
             }
           }
+          if(tile != -1){
+            if(searchavaspaces(tile)){
+              if (onplayer) {
+                searchspaces(1, pushedplayer, true);
+                players[turn].x = tile[0];
+                players[turn].y = tile[1];
+                mode = "PUSH";
+                sounds[4].play();
+              }else{
+                players[turn].x = tile[0];
+                players[turn].y = tile[1];
+                sounds[4].play();
+                proceed();
+              }
+            }
+          }
         }
-        if (availablespaces.length == 0 && tile[0] == players[turn].x && tile[1] == players[turn].y) {
-          proceed();
+        if(randint.digit == 1){
+          if (searchavaspaces(tile)) {
+            for (var i = 0; i < players.length; i++) {
+              if (players[i].x == tile[0] && players[i].y == tile[1]) {
+                if (players[i].life > 1) {
+                  sounds[5].play();
+                }
+                hit(players[i]);
+                proceed();
+                break;
+              }
+            }
+          }
+          if (availablespaces.length == 0 && tile[0] == players[turn].x && tile[1] == players[turn].y) {
+            proceed();
+          }
         }
-      }
-      if(randint.digit == 2){
-        if(searchavaspaces(tile)){
-          walls.push(tile);
-          sounds[1].play();
-          proceed();
+        if(randint.digit == 2){
+          if(searchavaspaces(tile)){
+            walls.push(tile);
+            sounds[1].play();
+            proceed();
+          }
+          if(availablespaces.length == 0 &&  tile[0] == players[turn].x && tile[1] == players[turn].y){
+            proceed();
+          }
         }
-        if(availablespaces.length == 0 &&  tile[0] == players[turn].x && tile[1] == players[turn].y){
-          proceed();
+        if(randint.digit == 3){
+          searchbuildbreak(false);
+          if(searchavaspaces(tile)){
+            for (var i = 0; i < walls.length; i++) {
+              if(walls[i][0] == tile[0] && walls[i][1] == tile[1]){
+                brokenwall = [walls[i], frameCount];
+                walls.splice(i, 1);
+              }
+            }
+            sounds[0].play();
+            proceed();
+          }
+          if(availablespaces.length == 0 &&  tile[0] == players[turn].x && tile[1] == players[turn].y){
+            proceed();
+          }
         }
-      }
-      if(randint.digit == 3){
-        searchbuildbreak(false);
+      }else if(randint.digit == 3){
+        if(searchwalls([players[turn].x, players[turn].y])){
+          availablespaces = [[players[turn].x, players[turn].y]];
+        }
         if(searchavaspaces(tile)){
           for (var i = 0; i < walls.length; i++) {
             if(walls[i][0] == tile[0] && walls[i][1] == tile[1]){
@@ -749,51 +788,34 @@ function mousePressed(){
           proceed();
         }
       }
-    }else if(randint.digit == 3){
-      if(searchwalls([players[turn].x, players[turn].y])){
-        availablespaces = [[players[turn].x, players[turn].y]];
+      else if(tile[0] == players[turn].x && tile[1] == players[turn].y){
+        proceed();
       }
-      if(searchavaspaces(tile)){
-        for (var i = 0; i < walls.length; i++) {
-          if(walls[i][0] == tile[0] && walls[i][1] == tile[1]){
-            brokenwall = [walls[i], frameCount];
-            walls.splice(i, 1);
+    }else if(mode = "PUSH"){
+      if(tile != -1){
+        var newpushedplayer;
+        for (var i = 0; i < players.length; i++) {
+          if(tile[0] == players[i].x && tile[1] == players[i].y && turn != i){
+            newpushedplayer = players[i];
+            onplayer = true;
+            break;
           }
         }
-        sounds[0].play();
-        proceed();
-      }
-      if(availablespaces.length == 0 &&  tile[0] == players[turn].x && tile[1] == players[turn].y){
-        proceed();
-      }
-    }
-    else if(tile[0] == players[turn].x && tile[1] == players[turn].y){
-      proceed();
-    }
-  }else if(mode = "PUSH"){
-    if(tile != -1){
-      var newpushedplayer;
-      for (var i = 0; i < players.length; i++) {
-        if(tile[0] == players[i].x && tile[1] == players[i].y && turn != i){
-          newpushedplayer = players[i];
-          onplayer = true;
-          break;
-        }
-      }
-      if(searchavaspaces(tile)){
-        if (onplayer) {
-          searchspaces(1, newpushedplayer, true);
-          pushedplayer.x = tile[0];
-          pushedplayer.y = tile[1];
-          // players.push(pushedplayer);
-          pushedplayer = newpushedplayer;
-          mode = "PUSH";
-        }else{
-          pushedplayer.x = tile[0];
-          pushedplayer.y = tile[1];
-          // players.push(pushedplayer);
-          pushedplayer = pushstarter = -1;
-          proceed();
+        if(searchavaspaces(tile)){
+          if (onplayer) {
+            searchspaces(1, newpushedplayer, true);
+            pushedplayer.x = tile[0];
+            pushedplayer.y = tile[1];
+            // players.push(pushedplayer);
+            pushedplayer = newpushedplayer;
+            mode = "PUSH";
+          }else{
+            pushedplayer.x = tile[0];
+            pushedplayer.y = tile[1];
+            // players.push(pushedplayer);
+            pushedplayer = pushstarter = -1;
+            proceed();
+          }
         }
       }
     }
