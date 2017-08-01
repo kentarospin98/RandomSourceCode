@@ -18,6 +18,7 @@ var sounds;
 var pushimage;
 var brokenwallsimage;
 var brokenwall;
+var pushstarter;
 
 function displaypnames(){
   fill(255);
@@ -496,7 +497,9 @@ function searchspaces(steps=2, player=players[turn], allowwalls=false){
   for (var i = 0; i < spaceswithrepeats.length; i++) {
     for (var j = 0; j < spaceswithrepeats[i].length; j++) {
       if (!searchavaspaces(spaceswithrepeats[i][j])) {
-        availablespaces.push(spaceswithrepeats[i][j]);
+        if (!(pushstarter.x == spaceswithrepeats[i][j][0] && pushstarter.y == spaceswithrepeats[i][j][1])) {
+          availablespaces.push(spaceswithrepeats[i][j]);
+        }
       }
     }
   }
@@ -583,6 +586,7 @@ function setup(){
     }
   }
   availablespaces = [];
+  pushstarter = -1;
   turn = 0;
   randint = new randomiser();
   mode = "SPIN";
@@ -665,7 +669,7 @@ function mousePressed(){
         var onplayer = false;
         for (var i = 0; i < players.length; i++) {
           if(tile[0] == players[i].x && tile[1] == players[i].y && turn != i && !searchwalls([players[i].x, players[i].y])){
-            pushedplayer = players[i];
+            pushedplayer = pushstarter = players[i];
             onplayer = true;
             break;
           }
@@ -771,7 +775,7 @@ function mousePressed(){
           pushedplayer.x = tile[0];
           pushedplayer.y = tile[1];
           // players.push(pushedplayer);
-          pushedplayer = -1;
+          pushedplayer = pushstarter = -1;
           proceed();
         }
       }
