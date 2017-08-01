@@ -578,7 +578,9 @@ function setup(){
   players = [];
 
   for(var i = 0; i < 4; i++){
-    inp = prompt("Enter the name of the next player (Leave blank if all players are done)");
+    do{
+      inp = prompt("Enter the name of player " + str(i + 1) + " (Leave blank if all players are done, Player names cannot be repeated)");
+    }while(searchname(inp));
     if(inp == ""){
       break;
     }else{
@@ -593,6 +595,15 @@ function setup(){
   walls = WALLPRESET;
   brokenwall = -1;
   boarddims = [(height - boardoffsets[0])/boardsize[0], (height - 2*boardoffsets[1])/boardsize[1]];
+}
+
+function searchname(inp){
+  for (var i = 0; i < players.length; i++) {
+    if (players[i].name == inp) {
+      return true;
+    }
+  }
+  return false;
 }
 
 function draw(){
