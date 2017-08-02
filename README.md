@@ -37,6 +37,7 @@ This project is basically a simple board game which we created as a pastime in o
 
 ### Minimum requirements:
  When you start game for the first time, it requires some data. This will be downloaded automatically when you start the game.
+ Works only on Desktop Browser. (Will crash on mobile phone browser)
 
 ### Why we made it:
 
