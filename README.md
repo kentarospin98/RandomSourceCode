@@ -26,7 +26,7 @@ This project is basically a simple board game which we created as a pastime in o
 
  4. Each function has different ability:
 
- 	- **Move** : You are allowed two steps in any direction. But you can't move across walls (Or corners). If you move on another player, you can push him to one step to any direction, even into walls! A Player cannot Move, Shoot, Build or Step when in a wall.
+ 	- **Move** : You are allowed two steps in any direction. But you can't move across walls (Or corners). If you move on another player, you can push him to one step to any direction, even into walls! A Player cannot Move, Shoot, Build or Step when in a wall. If a player is pushed into the wall there is a 25% chance of his life being deducted and when the wall breaks there is a 75% chance of his life being deducted. Test your luck!
  	- **Shoot**: You can shoot others once they are in line of sight. But you can't shoot them when they are behind walls. When shot, a life is lost and you returned to spawn position. When all 3 lives have been deducted, you are out of the game.
  	- **Build**: You can build a wall in every direction one step away from your place, but not over other players or in locations which are behind walls.
  	- **Break**: You can break a wall in every direction one step away from your place, but not the ones which are hidden behind walls.
@@ -37,7 +37,6 @@ This project is basically a simple board game which we created as a pastime in o
 
 ### Minimum requirements:
  When you start game for the first time, it requires some data. This will be downloaded automatically when you start the game.
- Works only on Desktop Browser. (Will crash on mobile phone browser)
 
 ### Why we made it:
 
