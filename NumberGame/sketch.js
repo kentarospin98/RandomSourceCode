@@ -72,8 +72,10 @@ function hit(player, sendback=true){
       }
     }
   }
-  player.x = player.spawn[0];
-  player.y = player.spawn[1];
+  if (sendback){
+    player.x = player.spawn[0];
+    player.y = player.spawn[1];
+  }
   if (players.length <= 1) {
     curreentscreen = "ENDGAME";
   }
@@ -404,10 +406,15 @@ function searchbuildbreak(build=true){
   availablespaces = newavaspaces;
 }
 
-function searchplayers(arr, except=-1){
+function searchplayers(arr, except=-1, getplayer=false){
   for (var k = 0; k < players.length; k++) {
-    if(players[k].x == arr[0] && players[k].y == arr[1] && !(except == k)){
-      return true;
+    var player = players[k];
+    if(player.x == arr[0] && player.y == arr[1] && !(except == k)){
+      if (getplayer == true) {
+        return player;
+      }else{
+        return true;
+      }
     }
   }
   return false;
@@ -794,6 +801,10 @@ function mousePressed(){
             for (var i = 0; i < walls.length; i++) {
               if(walls[i][0] == tile[0] && walls[i][1] == tile[1]){
                 brokenwall = [walls[i], frameCount];
+                player = searchplayers(walls[i], void 0 , returnplayer=true);
+                if (player != false && random(1) < 0.75) {
+                  hit(player, sendback=false);
+                }
                 walls.splice(i, 1);
               }
             }
@@ -812,6 +823,10 @@ function mousePressed(){
           for (var i = 0; i < walls.length; i++) {
             if(walls[i][0] == tile[0] && walls[i][1] == tile[1]){
               brokenwall = [walls[i], frameCount];
+              player = searchplayers(walls[i], void 0, returnplayer=true);
+              if (player != false && random(1) < 0.75) {
+                hit(player, sendback=false);
+              }
               walls.splice(i, 1);
             }
           }
@@ -825,7 +840,7 @@ function mousePressed(){
       else if(tile[0] == players[turn].x && tile[1] == players[turn].y){
         proceed();
       }
-    }else if(mode = "PUSH"){
+    }else if(mode == "PUSH"){
       if(tile != -1){
         var newpushedplayer;
         for (var i = 0; i < players.length; i++) {
@@ -840,10 +855,20 @@ function mousePressed(){
             searchspaces(1, newpushedplayer, true);
             pushedplayer.x = tile[0];
             pushedplayer.y = tile[1];
+            if (searchwalls(tile)) {
+              if (random(1) < 0.25) {
+                hit(pushedplayer, sendback=false);
+              }
+            }
             // players.push(pushedplayer);
             pushedplayer = newpushedplayer;
             mode = "PUSH";
           }else{
+            if (searchwalls(tile)) {
+              if (random(1) < 0.25) {
+                 hit(pushedplayer, sendback=false);
+              }
+            }
             pushedplayer.x = tile[0];
             pushedplayer.y = tile[1];
             // players.push(pushedplayer);
